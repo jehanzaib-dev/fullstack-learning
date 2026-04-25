@@ -1,4 +1,5 @@
 import { userModel } from "../models/userModel.js";
+import bcrypt from 'bcrypt';
 
 export const registerUser=async(requestAnimationFrame, res)=>{
     try{
@@ -18,19 +19,22 @@ export const registerUser=async(requestAnimationFrame, res)=>{
         const {password:pass, ...others}=newUser._doc;
         res.status(201).json(others);
     }
-    catch(err){
-        res.status(500).json(err.message);
-    }
+    catch (err) {
+  console.error("🔥 ERROR STACK:", err);
+
+  return res.status(500).json({
+    message: "Internal Server Error",
+  });
+}
 }
 
 export const loginUser=async(req, res)=>{
-
     try{
         const {email, password}=req.body;
         if(!email || !password){
             return res.status(400).json({message:"all fields are required"});
         }
-        const registeredUser=await userModel.findOne({email:email.toLowerCase});
+        const registeredUser=await userModel.findOne({email:email.toLowerCase()});
         if(!registeredUser){
             return res.status(400).json({message:"user not found"});
         }
@@ -39,21 +43,16 @@ export const loginUser=async(req, res)=>{
             return res.status(401).json({message:"invalid credentials"});
         }
         const {password:pass, ...others}=registeredUser._doc;
-        res.status(200).json(others);
+        return res.status(200).json(others);
     }
-    catch(err){
-        res.status(500).json(err.message);
+        catch (err) {
+  console.log("🔥 LOGIN ERROR:", err);
+  return res.status(500).json({
+    message: err.message,
+    stack: err.stack,
+  });
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

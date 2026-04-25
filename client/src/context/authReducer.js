@@ -8,7 +8,7 @@ const AuthReducer=(state, action)=>{
                 
             };
         case "LOGIN_SUCCESS":
-            localStorage.setItem(JSON.stringify(action.payload));
+            localStorage.setItem("user",JSON.stringify(action.payload));
             return{
                 user:action.payload,
                 isFetching:false,
@@ -26,7 +26,7 @@ const AuthReducer=(state, action)=>{
                 user:{
                     ...state.user,
                     following:[...state.user.following, action.payload]
-                }
+                },
             };
         case "UNFOLLOW":
             return{
@@ -35,6 +35,13 @@ const AuthReducer=(state, action)=>{
                     ...state.user,
                     following:state.user.following.filter((id)=>id!==action.payload)
                 }
+            };
+        case "LOGOUT":
+            localStorage.removeItem("user");
+            return{
+                user:null,
+                isFetching:false,
+                error:false
             };
 
         default:
