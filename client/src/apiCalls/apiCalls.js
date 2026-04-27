@@ -10,7 +10,7 @@ export const loginCall = async (userCredentials, dispatch) => {
   } catch (err) {
     dispatch({
       type: "LOGIN_FAILURE",
-      payload: err.response?.data || "Login failed",
+      payload: err.response?.data?.message || "Login failed",
     });
   }
 };

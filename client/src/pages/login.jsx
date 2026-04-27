@@ -46,8 +46,8 @@ return(
         <div className="rightContentBox">
             <form onSubmit={handleSubmit}>
                 <div className="inputsBox">
-                    <input type="email" placeholder="email" ref={email} required/>
-                    <input type="password" placeholder="Password" ref={password} required/>
+                    <input type="email" placeholder="email" ref={email}/>
+                    <input type="password" placeholder="Password" ref={password}/>
                 </div>
                 <div className="buttonsBox">
                     <button type="submit" disabled={isFetching}>{isFetching ? "Loading..." : "Log In"}
@@ -57,11 +57,8 @@ return(
                 </div>
             </form>
             {
-              frontendError && <p>{frontendError}</p>
-            }
-            {
-              error && <p>{error.message || error}</p>
-            }
+            frontendError ? <p>{frontendError}</p>:error && <p>{error}</p>
+        }
         </div>
     </div>
 </div>

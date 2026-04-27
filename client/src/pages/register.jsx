@@ -11,28 +11,30 @@ export const RegisterPage=()=>{
     const password=useRef();
     const confirmPassword=useRef();
     const [loading, setLoading]=useState(false);
-    const [error, setError]=useState(null);
+    const [frontendError, setFrontendError]=useState(null);
+    const [backendError, setBackendError]=useState(null);
+
 
     const navigate=useNavigate();
 
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        setError(null);
-
+        setFrontendError(null);
+        setBackendError(null);
         const usernameValue=username.current.value.trim();
         const emailValue=email.current.value.trim();
         const passwordValue=password.current.value.trim();
         const confirmPasswordValue=confirmPassword.current.value.trim();
         if(!usernameValue || !emailValue || !passwordValue || !confirmPasswordValue){
-            setError("All firelds are required");
+            setFrontendError("All firelds are required");
             return;
         }
         if(passwordValue.length<8){
-            setError("Password should be atleast 8 characters long");
+            setFrontendError("Password should be atleast 8 characters long");
             return;
         }
         if(passwordValue !== confirmPasswordValue){
-            setError("passwords should be same");
+            setFrontendError("passwords should be same");
             return;
         }
         try{
@@ -49,15 +51,13 @@ export const RegisterPage=()=>{
         navigate('/login');
         }
         catch(err){
-            
             const errorMessage=err.response?.data?.message || "something went wrong";
-            setError(errorMessage);
+            setBackendError(errorMessage);
         } finally{
             setLoading(false);
         }
     }
     
-
     return(
 <div className="Page">
     <div className="registerWrapper">
@@ -68,10 +68,10 @@ export const RegisterPage=()=>{
         <div className="rightContentBox">
             <form className="inputForm" onSubmit={handleSubmit}>
                 <div className="inputsCntnr">
-                    <input type="text" placeholder="username" ref={username} required/>
-                    <input type="email" placeholder="email" ref={email} required/>
-                    <input type="password" placeholder="Password" ref={password} required/>
-                    <input type="password" placeholder="Confirm Password" ref={confirmPassword} required/>
+                    <input type="text" placeholder="username" ref={username}/>
+                    <input type="email" placeholder="email" ref={email}/>
+                    <input type="password" placeholder="Password" ref={password}/>
+                    <input type="password" placeholder="Confirm Password" ref={confirmPassword}/>
                 </div>
                 <div className="buttonsCntnr">
                     <button type="submit" disabled={loading}>
@@ -85,7 +85,7 @@ export const RegisterPage=()=>{
             </form>
         </div>
         {
-            error && <div>{error}</div>
+            frontendError ? <p>{frontendError}</p>:backendError && <p>{backendError}</p>
         }
     </div>
 </div>
