@@ -7,8 +7,6 @@ export default function LoginPage() {
   const email = useRef();
   const password = useRef();
     const [frontendError, setFrontendError]=useState(null);
-
-
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
