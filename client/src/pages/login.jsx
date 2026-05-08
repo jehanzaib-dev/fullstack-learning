@@ -34,7 +34,7 @@ export default function LoginPage() {
     } catch (err) {
       dispatch({
         type: "LOGIN_FAILURE",
-        payload: err.response?.data || "Login failed",
+        payload: err.response?.data?.message || "Login failed",
       });
     }
   };
