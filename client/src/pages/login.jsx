@@ -12,22 +12,33 @@ export default function LoginPage() {
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFrontendError(null);
-    const emailValue=email.current.value;
-    const passwordValue=password.current.value;
-    if(!emailValue || !passwordValue){
-        setFrontendError("all fields are required");
-        return;
+
+    const emailValue = email.current.value;
+    const passwordValue = password.current.value;
+
+    // 1. frontend validation
+    if (!emailValue || !passwordValue) {
+      setFrontendError("All fields are required");
+      return;
     }
-    loginCall(
-      {
+    dispatch({ type: "LOGIN_START" });
+    try {
+      const data = await loginCall({
         email: emailValue,
         password: passwordValue,
-      },
-      dispatch
-    );
+      });
+
+      dispatch({ type: "LOGIN_SUCCESS", payload: data });
+
+    } catch (err) {
+      dispatch({
+        type: "LOGIN_FAILURE",
+        payload: err.response?.data || "Login failed",
+      });
+    }
   };
 
   useEffect(() => {

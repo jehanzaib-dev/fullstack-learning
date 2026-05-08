@@ -1,9 +1,9 @@
 import { userModel } from "../models/userModel.js";
 import bcrypt from 'bcrypt';
 
-export const registerUser=async(requestAnimationFrame, res)=>{
+export const registerUser=async(req, res)=>{
     try{
-        const {username, email, password}=requestAnimationFrame.body;
+        const {username, email, password}=req.body;
         if(!username || !email || !password){
             return res.status(400).json({message:"all fields are required"});
         }

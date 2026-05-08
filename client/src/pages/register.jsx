@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import { RegisterCall } from "../apiCalls/apiCalls.js";
 
 
 
@@ -37,14 +37,11 @@ export const RegisterPage=()=>{
         }
         try{
             setLoading(true);
-            
-        const response=await axios.post('/auth/register',{
-            username:usernameValue,
-            email:emailValue,
-            password:passwordValue,
-            confirmPassword:confirmPasswordValue
-        });
-        console.log(response);
+            RegisterCall({
+                username:usernameValue,
+                email:emailValue,
+                password:passwordValue
+            });
         setLoading(false);
         navigate('/login');
         }

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import {RegisterPage} from './pages/register.jsx';
 import LoginPage from './pages/login.jsx';
@@ -12,8 +12,6 @@ return(
       <Route path="/login" element={<LoginPage/>}/>
       <Route path="/register" element={<RegisterPage/>}/>
       <Route path="/home" element={<HomePage/>}/>
-
-
       <Route path="/" element={<RegisterPage/>}/>  
     </Routes>  
   </BrowserRouter>
