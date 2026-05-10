@@ -39,7 +39,7 @@ export const RegisterPage=()=>{
         }
         try{
             setLoading(true);
-            RegisterCall({
+            await RegisterCall({
                 username:usernameValue,
                 email:emailValue,
                 password:passwordValue
