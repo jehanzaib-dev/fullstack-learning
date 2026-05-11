@@ -1,6 +1,7 @@
 import { useRef, useContext, useEffect, useState } from "react";
 import { loginCall } from "../apiCalls/apiCalls.js";
 import { AuthContext } from "../context/authContext";
+import { LoginStart, LoginSuccess, LoginFailure } from "../context/authActions.js";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function LoginPage() {
@@ -22,20 +23,17 @@ export default function LoginPage() {
       setFrontendError("All fields are required");
       return;
     }
-    dispatch({ type: "LOGIN_START" });
+    dispatch(LoginStart());
     try {
       const data = await loginCall({
         email: emailValue,
         password: passwordValue,
       });
 
-      dispatch({ type: "LOGIN_SUCCESS", payload: data });
+      dispatch(LoginSuccess(data));
 
     } catch (err) {
-      dispatch({
-        type: "LOGIN_FAILURE",
-        payload: err.response?.data?.message || "Login failed",
-      });
+      dispatch(LoginFailure(err.response?.data?.message || "Login Failed"));
     }
   };
 
