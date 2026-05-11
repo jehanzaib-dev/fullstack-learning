@@ -4,7 +4,7 @@ import { AuthContext } from "../context/authContext.js";
 
 export const HomePage=()=>{
 
-    const {user, dispatch} = useContext(AuthContext);
+    const {dispatch} = useContext(AuthContext);
 	const navigate = useNavigate();
     const handleLogout = () => {
 		dispatch({ type: "LOGOUT" });
