@@ -78,11 +78,12 @@ export default function CreatePost() {
         />
 
         <textarea
-          placeholder={`What's on your mind ${user.username}?`}
+          placeholder={`What's on your mind ${user?.username}?`}
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
           className="postInput"
         />
+        <p>{desc.length}/500</p>
 
       </div>
 
