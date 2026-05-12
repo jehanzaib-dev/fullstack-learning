@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext.js";
 import { Logout } from "../context/authActions.js";
-import {CreatePost} from '../components/createPost/createPost.jsx';
+import CreatePost from '../components/createPost/createPost.jsx';
 
 
 export const HomePage=()=>{

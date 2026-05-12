@@ -23,7 +23,7 @@ export const registerUser=async(req, res)=>{
   console.error("🔥 ERROR STACK:", err);
 
   return res.status(500).json({
-    message: "Internal Server Error",
+    message: "could not register, something went wrong",
   });
 }
 }
@@ -48,8 +48,7 @@ export const loginUser=async(req, res)=>{
         catch (err) {
   console.log("🔥 LOGIN ERROR:", err);
   return res.status(500).json({
-    message: err.message,
-    stack: err.stack,
+    message:"could not log in, something went wrong"
   });
     }
 }

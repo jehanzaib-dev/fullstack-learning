@@ -7,6 +7,6 @@ export const CreatePost=async(req, res)=>{
 	}
 	catch(err){
 		console.log("Error occured:", err);
-		return res.status(500).json({message:err.message});
+		return res.status(500).json({message:"Unable to post, something went wrong"});
 	}
 }
