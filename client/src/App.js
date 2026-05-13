@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PublicRoute from './components/routes/publicRoute.jsx';
 import ProtectedRoute from './components/routes/protectedRoute.jsx';
 
-import {RegisterPage} from './pages/register.jsx';
-import LoginPage from './pages/login.jsx';
-import { HomePage } from './pages/homepage.jsx';
+import {RegisterPage} from './pages/register/register.jsx';
+import LoginPage from './pages/login/login.jsx';
+import { HomePage } from './pages/homepage/homepage.jsx';
 
 const App=()=>{
   

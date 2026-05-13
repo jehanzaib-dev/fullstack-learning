@@ -1,3 +1,13 @@
+.createPostCard{
+    background-color:burlywood;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+}
+.topSection{
+    display: flex;
+    flex: 3;
+}
 .profilePic{
     width: 35px;
     height: 35px;
@@ -6,4 +16,8 @@
 }
 .postInput{
     resize: none;
+    flex: 5;
+}
+.bottomSection{
+    flex: 2;
 }

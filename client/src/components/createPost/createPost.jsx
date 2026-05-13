@@ -83,7 +83,6 @@ export default function CreatePost() {
           onChange={(e) => setDesc(e.target.value)}
           className="postInput"
         />
-        <p>{desc.length}/500</p>
 
       </div>
 

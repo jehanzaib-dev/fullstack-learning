@@ -1,7 +1,7 @@
 import { useRef, useContext, useEffect, useState } from "react";
-import { loginCall } from "../apiCalls/apiCalls.js";
-import { AuthContext } from "../context/authContext";
-import { LoginStart, LoginSuccess, LoginFailure } from "../context/authActions.js";
+import { loginCall } from "../../apiCalls/apiCalls.js";
+import { AuthContext } from "../../context/authContext.js";
+import { LoginStart, LoginSuccess, LoginFailure } from "../../context/authActions.js";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function LoginPage() {
