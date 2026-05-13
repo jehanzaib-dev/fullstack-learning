@@ -19,5 +19,6 @@
     flex: 5;
 }
 .bottomSection{
-    flex: 2;
+    display: flex;
+    justify-content: space-between;
 }
