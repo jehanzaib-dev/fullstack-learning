@@ -59,7 +59,7 @@
 .topbarLinks{
   display: flex;
   flex: 2;
-  justify-content: space-around;
+  gap:1rem;
 }
 
 .topbarLink{
@@ -70,7 +70,7 @@
 .topbarIcons{
   display: flex;
   justify-content: space-around;
-  gap: 15px;
+  gap:1rem;
   flex: 1;
 }
 
@@ -98,8 +98,7 @@
 .topbarProfile{
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  gap: 10px;
+  gap:1rem;
 }
 
 .topbarImg{

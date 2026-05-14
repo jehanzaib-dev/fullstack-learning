@@ -113,9 +113,11 @@ export default function CreatePost() {
         </div>
 
       </div>
+      <div className="errorText">
 		{
 			FrontendError ? <p>{FrontendError}</p>: backendError && <p>{backendError}</p>
 		}
+  </div>
     </form>
   </div>
   );

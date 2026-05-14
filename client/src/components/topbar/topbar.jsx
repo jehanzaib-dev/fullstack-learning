@@ -75,7 +75,7 @@ export default function Topbar() {
         <div className="topbarProfile">
 
           <img
-            src="./logo512.png"
+            src={user?.profilePic}
             alt="profile"
             className="topbarImg"
           />
