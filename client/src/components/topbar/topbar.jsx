@@ -80,10 +80,6 @@ export default function Topbar() {
             className="topbarImg"
           />
 
-          <span className="topbarUsername">
-            {user?.username}
-          </span>
-
           <button
             className="logoutBtn"
             onClick={handleLogout}

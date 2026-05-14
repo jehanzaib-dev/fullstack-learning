@@ -64,9 +64,9 @@ export default function CreatePost() {
   };
 
   return (
-
+    <div className="createPostCard">
     <form
-      className="createPostCard"
+      className="createPostForm"
       onSubmit={handleShare}
     >
       <div className="topSection">
@@ -86,17 +86,17 @@ export default function CreatePost() {
 
       </div>
 
-      <hr />
+      <hr className="createPostDivider"/>
 
       {/* Bottom Section */}
       <div className="bottomSection">
 
         <div className="optionsCntnr">
 
-          <span>Photo</span>
-          <span>Document</span>
-          <span>Location</span>
-          <span>Feeling</span>
+          <span className="postOption">Photo</span>
+          <span className="postOption">Document</span>
+          <span className="postOption">Location</span>
+          <span className="postOption">Feeling</span>
 
         </div>
 
@@ -117,5 +117,6 @@ export default function CreatePost() {
 			FrontendError ? <p>{FrontendError}</p>: backendError && <p>{backendError}</p>
 		}
     </form>
+  </div>
   );
 }

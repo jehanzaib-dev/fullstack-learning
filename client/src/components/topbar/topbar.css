@@ -4,6 +4,7 @@
   background-color: #1877f2;
   display: flex;
   align-items: center;
+  gap: 5px;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -14,11 +15,11 @@
   flex: 3;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  justify-content: center;
 }
 
 .logo{
-  font-size: 28px;
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
   font-weight: 700;
   color: white;
   cursor: pointer;
@@ -50,24 +51,27 @@
   flex: 4;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   color: white;
-  padding-right: 20px;
+  padding: 0 10px;
 }
 
 .topbarLinks{
   display: flex;
-  gap: 15px;
+  flex: 2;
+  justify-content: space-around;
 }
 
 .topbarLink{
-  font-size: 14px;
+  font-size: clamp(0.8rem, 1.3vw, 2rem);
   cursor: pointer;
 }
 
 .topbarIcons{
   display: flex;
+  justify-content: space-around;
   gap: 15px;
+  flex: 1;
 }
 
 .topbarIconItem{
@@ -77,23 +81,24 @@
 }
 
 .topbarIconBadge{
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   background-color: red;
   border-radius: 50%;
   color: white;
-  font-size: 11px;
+  font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -5px;
-  right: -8px;
+  top: -1px;
+  right: -4px;
 }
 
 .topbarProfile{
   display: flex;
   align-items: center;
+  justify-content: space-around;
   gap: 10px;
 }
 
@@ -102,11 +107,7 @@
   height: 38px;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.topbarUsername{
-  font-size: 14px;
-  font-weight: 500;
+  flex: 1;
 }
 
 .logoutBtn{
@@ -115,4 +116,5 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  flex: 1;
 }
