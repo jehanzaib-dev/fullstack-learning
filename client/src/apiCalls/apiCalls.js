@@ -14,3 +14,8 @@ export const CreatePostCall=async(postData)=>{
   const response=await axios.post('/api/v1/posts', postData);
   return response.data;
 }
+
+export const getAllPostsCall=async()=>{
+  const response=await axios.get('/api/v1/posts');
+  return response.data;
+}

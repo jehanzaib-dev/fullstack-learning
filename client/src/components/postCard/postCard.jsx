@@ -1,6 +1,6 @@
 import "./postCard.css";
 
-export default function PostCard() {
+export default function PostCard({post}) {
 
   return (
 
@@ -12,7 +12,7 @@ export default function PostCard() {
         <div className="postTopLeft">
 
           <img
-            src="./logo512.png"
+            src={post.img}
             alt="profile"
             className="postProfileImg"
           />
@@ -20,7 +20,7 @@ export default function PostCard() {
           <div className="postUserInfo">
 
             <span className="postUsername">
-              Jehanzaib
+              {post.username}
             </span>
 
             <span className="postDate">
@@ -45,12 +45,11 @@ export default function PostCard() {
       <div className="postCenter">
 
         <p className="postText">
-          Building my first fullstack social media app 🚀
+          {post.desc}
         </p>
 
         <img
-          src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
-          alt="post"
+          src={post.img} alt="postImage"
           className="postImg"
         />
 

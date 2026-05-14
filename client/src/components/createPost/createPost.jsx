@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/authContext.js";
 import { CreatePostCall } from "../../apiCalls/apiCalls.js";
 
 
-export default function CreatePost() {
+export default function CreatePost({setPosts}) {
 
   // Current logged-in user
   const { user } = useContext(AuthContext);
@@ -44,7 +44,7 @@ export default function CreatePost() {
 
       // Send request to backend
       await CreatePostCall(newPost);
-
+      setPosts((prevPosts)=>[newPost, ...prevPosts]);
       // Clear textarea after success
       setDesc("");
 
@@ -53,7 +53,7 @@ export default function CreatePost() {
 
     } catch (err) {
 		console.log(err);
-		const errorMessage=err.response?.data?.message || 'Unable to create post. Please try again';
+		const errorMessage=err.response?.data?.message || "Server not running please check";
 		setBackendError(errorMessage);
 
     } finally {

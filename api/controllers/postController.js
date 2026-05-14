@@ -7,26 +7,26 @@ export const CreatePost=async(req, res)=>{
 	}
 	catch(err){
 		console.log("Error occured:", err);
-		return res.status(500).json({message:"Unable to post, something went wrong"});
+		return res.status(500).json({message:"Unable to connect to database, please check your internet connection"});
 	}
 }
 
-export const getPosts = async (req, res) => {
+export const getAllPosts = async (req, res) => {
 
   try {
 
-    const posts = await postModel.find().sort({
+    const allPosts = await postModel.find().sort({
       createdAt: -1,
     });
 
-    res.status(200).json(posts);
+    res.status(200).json(allPosts);
 
   } catch (err) {
 
     console.log(err);
 
     res.status(500).json({
-      message: "Unable to fetch posts",
+      message: "Unable to connect to database, please check your internet connection"
     });
   }
 };

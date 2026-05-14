@@ -33,7 +33,7 @@ export default function LoginPage() {
       dispatch(LoginSuccess(data));
 
     } catch (err) {
-      dispatch(LoginFailure(err.response?.data?.message || "Login Failed"));
+      dispatch(LoginFailure(err.response?.data?.message || "Server not running please check"));
     }
   };
 

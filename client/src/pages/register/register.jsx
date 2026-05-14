@@ -48,7 +48,7 @@ export const RegisterPage=()=>{
         navigate('/login');
         }
         catch(err){
-            const errorMessage=err.response?.data?.message || "something went wrong";
+            const errorMessage=err.response?.data?.message || "Server not running, please check";
             setBackendError(errorMessage);
         } finally{
             setLoading(false);
