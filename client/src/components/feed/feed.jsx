@@ -17,7 +17,7 @@ export default function Feed() {
     const fetchPosts = async () => {
 
       try {
-
+        setBackendError(false);
         setIsLoading(true);
 
         const data = await getAllPostsCall();
