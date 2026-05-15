@@ -43,9 +43,10 @@ export default function CreatePost({setPosts}) {
       setIsSubmitting(true);
 
       // Send request to backend
-      await CreatePostCall(newPost);
-      setPosts((prevPosts)=>[newPost, ...prevPosts]);
-      // Clear textarea after success
+      const data=await CreatePostCall(newPost);
+
+  setPosts((prevPosts) => [data, ...prevPosts]);
+
       setDesc("");
 
       // Optional feedback

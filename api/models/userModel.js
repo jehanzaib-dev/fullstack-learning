@@ -20,6 +20,10 @@ const userSchema=new Schema({
         min:8,
         max:20,
     },
+    profilePicture:{
+    type:String,
+    default:""
+    },
     followers:{
         type:Array,
         default:[]

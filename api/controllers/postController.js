@@ -1,9 +1,16 @@
 import {postModel} from '../models/postModel.js';
+import {userModel} from '../models/userModel.js';
+import {enrichPost} from '../utils/enrichPost.js';
 
 export const CreatePost=async(req, res)=>{
 	try{
 	const newPost=await postModel.create(req.body);
-	return res.status(200).json(newPost);
+
+const user = await userModel.findById(newPost.userId);
+
+const enrichedPost = await enrichPost(newPost);
+
+res.status(200).json(enrichedPost);
 	}
 	catch(err){
 		console.log("Error occured:", err);
@@ -14,12 +21,13 @@ export const CreatePost=async(req, res)=>{
 export const getAllPosts = async (req, res) => {
 
   try {
+    const posts = await postModel.find().sort({ createdAt: -1 });
 
-    const allPosts = await postModel.find().sort({
-      createdAt: -1,
-    });
+const enrichedPosts = await Promise.all(
+  posts.map((post) => enrichPost(post))
+);
 
-    res.status(200).json(allPosts);
+res.json(enrichedPosts);
 
   } catch (err) {
 

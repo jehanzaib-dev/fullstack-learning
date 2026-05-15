@@ -1,4 +1,5 @@
 import "./postCard.css";
+import {format} from 'timeago.js';
 
 export default function PostCard({post}) {
 
@@ -12,7 +13,7 @@ export default function PostCard({post}) {
         <div className="postTopLeft">
 
           <img
-            src={post.img}
+            src={post.user?.profilePicture || "/assets/person/noAvatar.jpeg"}
             alt="profile"
             className="postProfileImg"
           />
@@ -20,11 +21,11 @@ export default function PostCard({post}) {
           <div className="postUserInfo">
 
             <span className="postUsername">
-              {post.username}
+              {post.user?.username || "user"}
             </span>
 
             <span className="postDate">
-              5 mins ago
+              {format(post.createdAt)}
             </span>
 
           </div>
@@ -47,11 +48,15 @@ export default function PostCard({post}) {
         <p className="postText">
           {post.desc}
         </p>
-
-        <img
+        {
+          post.img && (
+          <img
           src={post.img} alt="postImage"
           className="postImg"
         />
+          )
+        }
+        
 
       </div>
 
@@ -60,12 +65,10 @@ export default function PostCard({post}) {
 
         <div className="postBottomLeft">
 
-          <span className="likeIcon">
-            ❤️
-          </span>
+          <img className="likeIcon" src="/assets/like.png" alt=""/>
 
           <span className="postLikeCount">
-            12 likes
+            {post.likes?.length || 0} likes
           </span>
 
         </div>
