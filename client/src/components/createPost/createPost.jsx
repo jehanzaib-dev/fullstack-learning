@@ -73,7 +73,7 @@ export default function CreatePost({setPosts}) {
       <div className="topSection">
 
         <img
-          src="./logo512.png"
+          src={user?.profilePicture || '/assets/person/noAvatar.jpeg'}
           alt="profile"
           className="profilePic"
         />
