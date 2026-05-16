@@ -14,6 +14,7 @@ export default function PostCard({post, setPosts}) {
   const [isLiked, setIsLiked]=useState(post.likes.includes(user._id));
   const [liking, setLiking]=useState(false);
   const [backendError, setBackendError]=useState(null);
+  const isOwner = post.userId === user._id;
 
   const handleLike = async () => {
     if(liking) return;
@@ -54,69 +55,45 @@ const handleDelete = async () => {
   }
 };
 
-  return (
-
-    <div className="postCard">
-
-      {/* Top Section */}
-      <div className="postTop">
-
-        <div className="postTopLeft">
-
-          <img
-            src={post.user?.profilePicture || "/assets/person/noAvatar.jpeg"}
-            alt="profile"
-            className="postProfileImg"
-          />
-
-          <div className="postUserInfo">
-
-            <span className="postUsername">
-              {post.user?.username || "user"}
-            </span>
-
-            <span className="postDate">
-              {format(post.createdAt)}
-            </span>
-
-          </div>
-
-        </div>
-
-        <div className="postTopRight">
-         <MoreVertIcon
-          className="moreIcon"
-          onClick={() => setShowMenu(!showMenu)}
-  />
-
-  {
-    showMenu && (
-      <div className="postMenu">
-
-        {
-          post.userId === user._id && (
-            <button
-              className="menuItem deleteItem"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
-          )
+return (
+<div className="postCard">
+  <div className="postTop">
+    <div className="postTopLeft">
+      <img src={post.user?.profilePicture || "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
+      <div className="postUserInfo">
+      <span className="postUsername">
+      {post.user?.username || "user"}
+      </span>
+      <span className="postDate">
+      {format(post.createdAt)}
+      </span>
+      </div>
+    </div>
+    <div className="postTopRight">
+      <MoreVertIcon
+      className="moreIcon"
+      onClick={() => {
+      if (isOwner) {
+        setShowMenu(!showMenu);
         }
-
+      }}
+      />
+      {
+      showMenu && isOwner && (
+      <div className="postMenu">
+      <button className="menuItem deleteItem"
+      onClick={handleDelete}>
+      Delete
+      </button>
       </div>
-    )
-  }
-        </div>
-
-      </div>
-
-      {/* Center Section */}
-      <div className="postCenter">
-
-        <p className="postText">
-          {post.desc}
-        </p>
+      )
+      }
+    </div>
+  </div>
+  <div className="postCenter">
+    <p className="postText">
+    {post.desc}
+    </p>
         {
           post.img && (
           <img
@@ -125,43 +102,28 @@ const handleDelete = async () => {
         />
           )
         }
-        
-
-      </div>
-
-      {/* Bottom Section */}
-      <div className="postBottom">
-
-        <div className="postBottomLeft">
-
-          <img className="likeIcon" src="/assets/like.png" alt="" onClick={handleLike}/>
-
-          <span className="postLikeCount">
-            {
-              liking ? "updating...":
-              <>
-              <strong>{like}</strong> people liked it
-              </>
-            }
-          </span>
-
-        </div>
-
-        <div className="postBottomRight">
-
-          <span className="postCommentText">
-            4 comments
-          </span>
-          
-        </div>
-
-      </div>
-      <div className="errorText">
+  </div>
+  <div className="postBottom">
+    <div className="postBottomLeft">
+      <img className="likeIcon" src="/assets/like.png" alt="" onClick={handleLike}/>
+      <span className="postLikeCount">
+      {
+      liking ? "updating...":
+        <>
+        <strong>{like}</strong> people liked it
+        </>
+      }
+      </span>
+    </div>
+    <div className="postBottomRight">
+      <span className="postCommentText">4 comments</span>
+    </div>
+  </div>
+  <div className="errorText">
         {
           backendError && <p>{backendError}</p>
         }
-      </div>
-
-    </div>
-  );
+  </div>
+</div>  
+);
 }
