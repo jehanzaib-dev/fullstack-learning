@@ -71,7 +71,7 @@ export default function Feed() {
           posts.map((post) => (
             <PostCard
               key={post._id}
-              post={post}
+              post={post} setPosts={setPosts}
             />
           ))
         }

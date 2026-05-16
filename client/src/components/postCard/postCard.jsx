@@ -2,11 +2,14 @@ import { useContext, useState } from "react";
 import "./postCard.css";
 import {format} from 'timeago.js';
 import {AuthContext} from '../../context/authContext.js';
-import { LikePostCall } from "../../apiCalls/apiCalls.js";
+import { LikePostCall, DeletePostCall } from "../../apiCalls/apiCalls.js";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export default function PostCard({post}) {
+
+export default function PostCard({post, setPosts}) {
 
   const {user}=useContext(AuthContext);
+  const [showMenu, setShowMenu]=useState(false);
   const [like, setLike]=useState(post.likes.length);
   const [isLiked, setIsLiked]=useState(post.likes.includes(user._id));
   const [liking, setLiking]=useState(false);
@@ -30,6 +33,24 @@ export default function PostCard({post}) {
   }
   finally{
     setLiking(false);
+  }
+};
+const handleDelete = async () => {
+
+  try {
+
+    await DeletePostCall(post._id, user._id);
+
+    setPosts((prevPosts) =>
+      prevPosts.filter(
+        (p) => p._id !== post._id
+      )
+    );
+
+  } catch (err) {
+    console.log(err);
+    const errorMessage=err.response?.data?.message || "can't connect to server";
+
   }
 };
 
@@ -63,11 +84,29 @@ export default function PostCard({post}) {
         </div>
 
         <div className="postTopRight">
+         <MoreVertIcon
+          className="moreIcon"
+          onClick={() => setShowMenu(!showMenu)}
+  />
 
-          <span className="postMore">
-            ...
-          </span>
+  {
+    showMenu && (
+      <div className="postMenu">
 
+        {
+          post.userId === user._id && (
+            <button
+              className="menuItem deleteItem"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          )
+        }
+
+      </div>
+    )
+  }
         </div>
 
       </div>
@@ -113,7 +152,7 @@ export default function PostCard({post}) {
           <span className="postCommentText">
             4 comments
           </span>
-
+          
         </div>
 
       </div>

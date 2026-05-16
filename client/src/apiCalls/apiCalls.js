@@ -28,3 +28,15 @@ export const LikePostCall = async (postId, userId) => {
     );
     return response.data;
   };
+
+  export const DeletePostCall = async (postId, userId) => {
+
+    const response = await axios.delete(
+      `/api/v1/posts/${postId}`,
+      {
+        data: { userId }
+      }
+    );
+
+    return response.data;
+  };

@@ -68,3 +68,29 @@ export const likePost = async (req, res) => {
 
   }
 };
+
+export const deletePost = async (req, res) => {
+
+  try {
+
+    const post = await postModel.findById(req.params.id);
+
+    // ownership check
+    if (post.userId === req.body.userId) {
+
+      await post.deleteOne();
+
+      res.status(200).json("Post deleted successfully");
+
+    } else {
+
+      res.status(403).json("You can delete only your own posts");
+
+    }
+
+  } catch (err) {
+
+    res.status(500).json({message:"can't connect to database"});
+
+  }
+};
