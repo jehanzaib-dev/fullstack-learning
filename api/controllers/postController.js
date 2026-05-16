@@ -1,12 +1,9 @@
 import {postModel} from '../models/postModel.js';
-import {userModel} from '../models/userModel.js';
 import {enrichPost} from '../utils/enrichPost.js';
 
 export const CreatePost=async(req, res)=>{
 	try{
 	const newPost=await postModel.create(req.body);
-
-const user = await userModel.findById(newPost.userId);
 
 const enrichedPost = await enrichPost(newPost);
 
@@ -36,5 +33,38 @@ res.json(enrichedPosts);
     res.status(500).json({
       message: "Unable to connect to database, please check your internet connection"
     });
+  }
+};
+
+export const likePost = async (req, res) => {
+
+  try {
+
+    const post = await postModel.findById(req.params.id);
+
+    // check if already liked
+    if (post.likes.includes(req.body.userId)) {
+
+      // unlike
+      await post.updateOne({
+        $pull: { likes: req.body.userId }
+      });
+
+      res.status(200).json("Post unliked");
+
+    } else {
+
+      // like
+      await post.updateOne({
+        $push: { likes: req.body.userId }
+      });
+
+      res.status(200).json("Post liked");
+    }
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({message:"can't connect to database"});
+
   }
 };

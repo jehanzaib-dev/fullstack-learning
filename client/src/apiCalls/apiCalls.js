@@ -19,3 +19,12 @@ export const getAllPostsCall=async()=>{
   const response=await axios.get('/api/v1/posts');
   return response.data;
 }
+
+export const LikePostCall = async (postId, userId) => {
+
+    const response = await axios.put(
+      `/api/v1/posts/${postId}/like`,
+      { userId }
+    );
+    return response.data;
+  };
