@@ -40,3 +40,16 @@ export const LikePostCall = async (postId, userId) => {
 
     return response.data;
   };
+
+ export const UpdatePostCall = async (
+  postId,
+  updatedData
+) => {
+
+  const response = await axios.put(
+    `/api/v1/posts/${postId}`,
+    updatedData
+  );
+
+  return response.data;
+}; 

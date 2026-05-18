@@ -106,6 +106,43 @@
 .deleteItem:hover{
   background-color: #fdeaea;
 }
+.editSection{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editInput{
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  resize: none;
+  font-size: 14px;
+}
+
+.editActions{
+  display: flex;
+  gap: 10px;
+}
+
+.saveBtn,
+.cancelBtn{
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.saveBtn{
+  background-color: #1877f2;
+  color: white;
+}
+
+.cancelBtn{
+  background-color: #eee;
+}
 .postCenter{
     display:flex;
     flex-direction:column;

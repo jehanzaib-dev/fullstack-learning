@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./postCard.css";
 import {format} from 'timeago.js';
 import {AuthContext} from '../../context/authContext.js';
-import { LikePostCall, DeletePostCall } from "../../apiCalls/apiCalls.js";
+import { LikePostCall, DeletePostCall, UpdatePostCall } from "../../apiCalls/apiCalls.js";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 
@@ -15,6 +15,11 @@ export default function PostCard({post, setPosts}) {
   const [liking, setLiking]=useState(false);
   const [backendError, setBackendError]=useState(null);
   const isOwner = post.userId === user._id;
+  const [isEditing, setIsEditing] = useState(false);
+
+const [editedDesc, setEditedDesc] = useState(post.desc);
+
+const [isUpdating, setIsUpdating] = useState(false);
 
   const handleLike = async () => {
     if(liking) return;
@@ -54,6 +59,47 @@ const handleDelete = async () => {
 
   }
 };
+const handleEdit = async () => {
+  if (!editedDesc.trim()) return;
+
+  try {
+
+    setIsUpdating(true);
+
+    await UpdatePostCall(
+      post._id,
+      {
+        userId: user._id,
+        desc: editedDesc
+      }
+    );
+
+    setPosts((prevPosts) =>
+      prevPosts.map((p) =>
+        p._id === post._id
+          ? { ...p, desc: editedDesc }
+          : p
+      )
+    );
+
+    setIsEditing(false);
+
+  } catch (err) {
+
+    console.log(err);
+
+    const errorMessage =
+      err.response?.data?.message
+      || "Can't connect to server";
+
+    setBackendError(errorMessage);
+
+  } finally {
+
+    setIsUpdating(false);
+
+  }
+};
 
 return (
 <div className="postCard">
@@ -81,6 +127,11 @@ return (
       {
       showMenu && isOwner && (
       <div className="postMenu">
+      <button className="menuItem"
+        onClick={() => setIsEditing(true)}
+      >
+        Edit
+      </button>
       <button className="menuItem deleteItem"
       onClick={handleDelete}>
       Delete
@@ -92,7 +143,53 @@ return (
   </div>
   <div className="postCenter">
     <p className="postText">
-    {post.desc}
+    {
+  isEditing ? (
+
+    <div className="editSection">
+
+      <textarea
+        className="editInput"
+        value={editedDesc}
+        onChange={(e) => setEditedDesc(e.target.value)}
+      />
+
+      <div className="editActions">
+
+        <button
+          className="saveBtn"
+          onClick={handleEdit}
+          disabled={isUpdating}
+        >
+          {
+            isUpdating
+              ? "Saving..."
+              : "Save"
+          }
+        </button>
+
+        <button
+          className="cancelBtn"
+          onClick={() => {
+            setIsEditing(false);
+            setEditedDesc(post.desc);
+          }}
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+  ) : (
+
+    <p className="postText">
+      {post.desc}
+    </p>
+
+  )
+}
     </p>
         {
           post.img && (

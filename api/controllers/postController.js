@@ -94,3 +94,32 @@ export const deletePost = async (req, res) => {
 
   }
 };
+
+export const updatePost = async (req, res) => {
+
+  try {
+
+    const post = await postModel.findById(req.params.id);
+
+    if (post.userId === req.body.userId) {
+
+      await post.updateOne({
+        $set: {
+          desc: req.body.desc
+        }
+      });
+
+      res.status(200).json("Post updated successfully");
+
+    } else {
+
+      res.status(403).json("You can update only your own post");
+
+    }
+
+  } catch (err) {
+
+    res.status(500).json(err);
+
+  }
+};
