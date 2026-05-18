@@ -95,7 +95,7 @@ export const deletePost = async (req, res) => {
   }
 };
 
-export const updatePost = async (req, res) => {
+export const editPost = async (req, res) => {
 
   try {
 
@@ -119,7 +119,7 @@ export const updatePost = async (req, res) => {
 
   } catch (err) {
 
-    res.status(500).json(err);
+    res.status(500).json({message:"can't connect to database"});
 
   }
 };

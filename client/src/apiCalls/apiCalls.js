@@ -23,9 +23,7 @@ export const getAllPostsCall=async()=>{
 export const LikePostCall = async (postId, userId) => {
 
     const response = await axios.put(
-      `/api/v1/posts/${postId}/like`,
-      { userId }
-    );
+      `/api/v1/posts/${postId}/like`, {userId} );
     return response.data;
   };
 
@@ -41,7 +39,7 @@ export const LikePostCall = async (postId, userId) => {
     return response.data;
   };
 
- export const UpdatePostCall = async (
+ export const EditPostCall = async (
   postId,
   updatedData
 ) => {

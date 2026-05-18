@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./postCard.css";
 import {format} from 'timeago.js';
 import {AuthContext} from '../../context/authContext.js';
-import { LikePostCall, DeletePostCall, UpdatePostCall } from "../../apiCalls/apiCalls.js";
+import { LikePostCall, DeletePostCall, EditPostCall } from "../../apiCalls/apiCalls.js";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 
@@ -15,7 +15,7 @@ export default function PostCard({post, setPosts}) {
   const [liking, setLiking]=useState(false);
   const [backendError, setBackendError]=useState(null);
   const isOwner = post.userId === user._id;
-  const [isEditing, setIsEditing] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
 const [editedDesc, setEditedDesc] = useState(post.desc);
 
@@ -56,17 +56,18 @@ const handleDelete = async () => {
   } catch (err) {
     console.log(err);
     const errorMessage=err.response?.data?.message || "can't connect to server";
-
+    setBackendError(errorMessage);
   }
 };
 const handleEdit = async () => {
+  setBackendError(false);
   if (!editedDesc.trim()) return;
 
   try {
 
     setIsUpdating(true);
 
-    await UpdatePostCall(
+    await EditPostCall(
       post._id,
       {
         userId: user._id,
@@ -82,7 +83,7 @@ const handleEdit = async () => {
       )
     );
 
-    setIsEditing(false);
+    setEditMode(false);
 
   } catch (err) {
 
@@ -128,7 +129,10 @@ return (
       showMenu && isOwner && (
       <div className="postMenu">
       <button className="menuItem"
-        onClick={() => setIsEditing(true)}
+        onClick={() =>{ setEditMode(true);
+        setShowMenu(false);
+        }
+        }
       >
         Edit
       </button>
@@ -144,18 +148,14 @@ return (
   <div className="postCenter">
     <p className="postText">
     {
-  isEditing ? (
-
+   editMode ? (
     <div className="editSection">
-
       <textarea
         className="editInput"
         value={editedDesc}
         onChange={(e) => setEditedDesc(e.target.value)}
       />
-
       <div className="editActions">
-
         <button
           className="saveBtn"
           onClick={handleEdit}
@@ -167,11 +167,10 @@ return (
               : "Save"
           }
         </button>
-
         <button
           className="cancelBtn"
           onClick={() => {
-            setIsEditing(false);
+            setEditMode(false);
             setEditedDesc(post.desc);
           }}
         >
