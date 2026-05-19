@@ -11,6 +11,10 @@ export const registerUser=async(req, res)=>{
         if(existingUser){
             return res.status(400).json({message:"user already registered"});
         }
+        const existingUsername = await userModel.findOne({username});
+        if (existingUsername) {
+        return res.status(400).json({message:`username ${username} already taken, please choose another one.`});
+        }
         const newUser=await userModel.create({
             username,
             email:email.toLowerCase(),

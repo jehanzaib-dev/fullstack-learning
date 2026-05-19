@@ -39,11 +39,8 @@ res.json(enrichedPosts);
 
 export const getUserPosts = async (req, res) => {
 
+  const username = req.params.username;
   try {
-
-    // Get username from URL
-    const username = req.params.username;
-
     // Find user document
     const user = await userModel.findOne({
       username: username

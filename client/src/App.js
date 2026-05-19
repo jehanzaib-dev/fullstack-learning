@@ -17,8 +17,7 @@ return(
       <Route path="/register" element={<PublicRoute><RegisterPage/></PublicRoute>}/>
       <Route path="/home" element={<ProtectedRoute><HomePage/></ProtectedRoute>}/>
       <Route path="/" element={<PublicRoute><RegisterPage/></PublicRoute>}/>
-      <Route path="/profile/:username" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
-/>  
+      <Route path="/profile/:username" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>  
     </Routes>  
   </BrowserRouter>
   );
