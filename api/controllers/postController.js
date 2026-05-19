@@ -1,4 +1,5 @@
 import {postModel} from '../models/postModel.js';
+import {userModel} from '../models/userModel.js';
 import {enrichPost} from '../utils/enrichPost.js';
 
 export const CreatePost=async(req, res)=>{
@@ -32,6 +33,39 @@ res.json(enrichedPosts);
 
     res.status(500).json({
       message: "Unable to connect to database, please check your internet connection"
+    });
+  }
+};
+
+export const getUserPosts = async (req, res) => {
+
+  try {
+
+    // Get username from URL
+    const username = req.params.username;
+
+    // Find user document
+    const user = await userModel.findOne({
+      username: username
+    });
+
+    // Find posts of that user
+    const posts = await postModel.find({
+      userId: user._id
+    });
+    const enrichedPosts = await Promise.all(
+  posts.map((post) => enrichPost(post))
+);
+
+    // Send posts
+    res.status(200).json(enrichedPosts);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error"
     });
   }
 };

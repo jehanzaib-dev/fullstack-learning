@@ -1,12 +1,10 @@
 import "./feed.css";
 import { useEffect, useState } from "react";
-
-import CreatePost from "../createPost/createPost.jsx";
 import PostCard from "../postCard/postCard.jsx";
 
-import { getAllPostsCall } from "../../apiCalls/apiCalls.js";
+import { getUserPostsCall,getAllPostsCall } from "../../apiCalls/apiCalls.js";
 
-export default function Feed() {
+export default function Feed({username}) {
 
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,10 +15,10 @@ export default function Feed() {
     const fetchPosts = async () => {
 
       try {
-        setBackendError(false);
+        setBackendError(null);
         setIsLoading(true);
 
-        const data = await getAllPostsCall();
+        const data = username ? await getUserPostsCall(username): await getAllPostsCall();
 
         setPosts(data);
 
@@ -42,12 +40,10 @@ export default function Feed() {
 
     fetchPosts();
 
-  }, []);
+  }, [username]);
 
   return (
     <div className="feed">
-
-      <CreatePost setPosts={setPosts} />
 
       {
         isLoading && (

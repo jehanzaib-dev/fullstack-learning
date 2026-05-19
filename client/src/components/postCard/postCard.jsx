@@ -4,6 +4,7 @@ import {format} from 'timeago.js';
 import {AuthContext} from '../../context/authContext.js';
 import { LikePostCall, DeletePostCall, EditPostCall } from "../../apiCalls/apiCalls.js";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Link } from "react-router-dom";
 
 
 export default function PostCard({post, setPosts}) {
@@ -106,11 +107,18 @@ return (
 <div className="postCard">
   <div className="postTop">
     <div className="postTopLeft">
-      <img src={post.user?.profilePicture || "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
+      <Link to={`/profile/${post.user?.username}`}>
+      <img src={
+      post.user?.profilePicture
+      || "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
+      </Link>
       <div className="postUserInfo">
-      <span className="postUsername">
-      {post.user?.username || "user"}
-      </span>
+      <Link to={`/profile/${post.user?.username}`} className="profileLink">
+        <span className="postUsername">
+          {post.user?.username}
+        </span>
+      </Link>
+
       <span className="postDate">
       {format(post.createdAt)}
       </span>

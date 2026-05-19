@@ -1,3 +1,6 @@
 .mainSection{
     display: flex;
 }
+.mainCenter{
+    flex: 6;
+}
