@@ -1,3 +1,78 @@
-.leftbar{
-    flex: 3;
+/* leftBar.css */
+
+.leftBar {
+  flex:3;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+  border-right: 1px solid #eee;
+}
+
+/* PROFILE SECTION */
+.leftBarProfile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.leftBarImg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.leftBarUserInfo h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.leftBarUserInfo p {
+  margin: 0;
+  font-size: 12px;
+  color: gray;
+}
+
+/* MENU */
+.leftBarMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.leftBarItem {
+  text-decoration: none;
+  color: black;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.leftBarItem:hover {
+  background: #f0f2f5;
+}
+
+/* LOGOUT */
+.leftBarLogout {
+  margin-top: auto;
+}
+
+.leftBarLogout button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #ff4d4d;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.leftBarLogout button:hover {
+  background: #e60000;
 }

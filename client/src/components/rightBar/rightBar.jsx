@@ -1,10 +1,20 @@
-import './rightBar.css';
+import "./rightBar.css";
+import { useLocation } from "react-router-dom";
+import {ProfileRightBar} from './profileRightBar.jsx';
+import {HomeRightBar} from './homeRightBar.jsx';
 
-export default function RightBar(){
+const RightBar = () => {
+  const location = useLocation();
 
-    return(
-        <div className='rightbar'>
-            Right Bar
-        </div>
-    )
-}
+  const isProfilePage = location.pathname.includes("/profile");
+
+  return (
+    <div className="rightBar">
+
+      {isProfilePage ? <ProfileRightBar /> : <HomeRightBar />}
+
+    </div>
+  );
+};
+
+export default RightBar;

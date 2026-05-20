@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/authContext.js";
 import { CreatePostCall } from "../../apiCalls/apiCalls.js";
 
 
-export default function CreatePost({onPostCreated}) {
+export default function CreatePost({postCreated}) {
 
   // Current logged-in user
   const { user } = useContext(AuthContext);
@@ -44,7 +44,7 @@ export default function CreatePost({onPostCreated}) {
 
       // Send request to backend
       await CreatePostCall(newPost);
-      onPostCreated();
+      postCreated();
 
       setDesc("");
 

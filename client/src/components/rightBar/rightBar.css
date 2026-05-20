@@ -1,3 +1,65 @@
-.rightbar{
-    flex: 3;
+/* rightBar.css */
+
+.rightBar {
+  flex: 3;
+  padding: 20px;
+  height: 100%;
+  background: white;
+  border-left: 1px solid #eee;
+}
+
+/* CONTENT WRAPPER */
+.rightBarContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* SUGGESTIONS */
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.suggestion:hover {
+  background: #f0f2f5;
+}
+
+.suggestion img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* BUTTON */
+.suggestion button {
+  padding: 5px 10px;
+  border: none;
+  background: #1877f2;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.suggestion button:hover {
+  background: #0f5bd1;
+}
+
+/* PROFILE CARD */
+.profileCard {
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.profileStats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: gray;
 }

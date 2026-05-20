@@ -1,6 +1,6 @@
-.mainSection{
+.homeContainer{
     display: flex;
 }
-.mainCenter{
+.homeFeed{
     flex: 6;
 }
