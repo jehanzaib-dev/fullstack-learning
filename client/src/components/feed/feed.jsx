@@ -4,7 +4,7 @@ import PostCard from "../postCard/postCard.jsx";
 
 import { getUserPostsCall,getAllPostsCall } from "../../apiCalls/apiCalls.js";
 
-export default function Feed({username}) {
+export default function Feed({username, refreshPosts}) {
 
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ export default function Feed({username}) {
 
     fetchPosts();
 
-  }, [username]);
+  }, [username, refreshPosts]);
 
   return (
     <div className="feed">

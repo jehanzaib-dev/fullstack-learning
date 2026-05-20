@@ -154,7 +154,6 @@ return (
     </div>
   </div>
   <div className="postCenter">
-    <p className="postText">
     {
    editMode ? (
     <div className="editSection">
@@ -197,7 +196,6 @@ return (
 
   )
 }
-    </p>
         {
           post.img && (
           <img

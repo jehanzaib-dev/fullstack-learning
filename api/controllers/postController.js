@@ -40,19 +40,32 @@ res.json(enrichedPosts);
 export const getUserPosts = async (req, res) => {
 
   const username = req.params.username;
+
   try {
+
     // Find user document
     const user = await userModel.findOne({
       username: username
     });
 
-    // Find posts of that user
-    const posts = await postModel.find({
-      userId: user._id
-    });
+    // If user not found
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    // Find posts of that user (newest first)
+    const posts = await postModel
+      .find({
+        userId: user._id
+      })
+      .sort({ createdAt: -1 });
+
+    // Enrich posts
     const enrichedPosts = await Promise.all(
-  posts.map((post) => enrichPost(post))
-);
+      posts.map((post) => enrichPost(post))
+    );
 
     // Send posts
     res.status(200).json(enrichedPosts);
