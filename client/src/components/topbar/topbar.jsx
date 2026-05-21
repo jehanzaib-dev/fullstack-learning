@@ -4,6 +4,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext.js";
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../../context/authActions";
+import {Link} from 'react-router-dom';
+
 
 export default function Topbar() {
 
@@ -47,10 +49,9 @@ export default function Topbar() {
       <div className="topbarRight">
 
         <div className="topbarLinks">
-
-          <span className="topbarLink">
+          <Link className="topbarLink link" to='/home'>
             Homepage
-          </span>
+        </Link>
 
           <span className="topbarLink">
             Timeline

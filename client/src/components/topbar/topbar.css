@@ -66,6 +66,10 @@
   font-size: clamp(0.8rem, 1.3vw, 2rem);
   cursor: pointer;
 }
+.link{
+  text-decoration: none;
+  color: white;
+}
 
 .topbarIcons{
   display: flex;
