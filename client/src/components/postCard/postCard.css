@@ -1,9 +1,10 @@
-.post{
-    width:100%;
-    border-radius:1rem;
-    background-color:white;
-    box-shadow:0 0 0.8rem rgba(0,0,0,0.08);
-    overflow:hidden;
+.postCard{
+  width: 100%;
+  border-radius: 12px;
+  padding: 16px;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,1); 
+box-shadow: 0px 0px 16px -8px rgba(0,0,0,1);
+    margin-bottom: 10px;
 }
 
 .postTop{
