@@ -1,9 +1,9 @@
 import "./profilePage.css";
 
 import Topbar from "../../components/topbar/topbar.jsx";
-import LeftBar from "../../components/leftBar/leftBar.jsx";
+import SideBar from "../../components/sidebar/sidebar.jsx";
 import Feed from "../../components/feed/feed.jsx";
-import RightBar from "../../components/rightBar/rightBar.jsx";
+import RightBar from "../../components/rightbar/rightbar.jsx";
 
 import { useParams } from "react-router-dom";
 
@@ -18,7 +18,7 @@ export default function Profile() {
 
       <div className="profile">
 
-        <LeftBar />
+        <SideBar />
 
         <div className="profileRight">
 

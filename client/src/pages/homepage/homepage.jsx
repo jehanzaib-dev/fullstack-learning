@@ -1,9 +1,9 @@
 import "./homepage.css";
 import Topbar from "../../components/topbar/topbar.jsx";
-import LeftBar from "../../components/leftBar/leftBar.jsx";
+import SideBar from "../../components/sidebar/sidebar.jsx";
 import CreatePost from "../../components/createPost/createPost.jsx";
 import Feed from "../../components/feed/feed.jsx";
-import RightBar from "../../components/rightBar/rightBar.jsx";
+import RightBar from "../../components/rightbar/rightbar.jsx";
 import { useState } from "react";
 
 export const HomePage = () => {
@@ -18,7 +18,7 @@ export const HomePage = () => {
       <Topbar />
 
       <div className="homeContainer">
-        <LeftBar />
+        <SideBar />
 
         <div className="homeFeed">
           <CreatePost postCreated={handlePostCreated} />
