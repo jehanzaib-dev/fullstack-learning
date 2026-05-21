@@ -7,7 +7,7 @@ import RightBar from '../../components/rightBar/rightBar.jsx';
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
-import {followUserCall, unfollowUserCall} from '../../apiCalls/apiCalls.js';
+import {followUserCall, getOneUserCall, unfollowUserCall} from '../../apiCalls/apiCalls.js';
 import {Follow, UnFollow} from '../../context/authActions.js';
 import axios from 'axios';
 
@@ -20,8 +20,8 @@ const [profileUser, setProfileUser] = useState(null);
 useEffect(() => {
   const fetchUser = async () => {
     try {
-      const res = await axios.get(`/api/v1/users/${username}`);
-      setProfileUser(res.data);
+      const data =await getOneUserCall(username); 
+      setProfileUser(data);
     } catch (err) {
       console.log(err);
     }

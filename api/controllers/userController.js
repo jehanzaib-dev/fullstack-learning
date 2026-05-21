@@ -26,7 +26,7 @@ export const getUserByUsername = async (req, res) => {
     console.log(err);
 
     res.status(500).json({
-      message: "Server error",
+      message: "Can't connect to database",
     });
 
   }

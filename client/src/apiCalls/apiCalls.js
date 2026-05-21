@@ -15,6 +15,11 @@ export const getAllUsersCall=async()=>{
   return response.data;
 }
 
+export const getOneUserCall=async(username)=>{
+  const response=await axios.get(`/api/v1/users/${username}`);
+  return response.data;
+}
+
 export const followUserCall = async (targetUserId, userId) => {
 
   const response = await axios.put(
