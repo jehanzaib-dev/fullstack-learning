@@ -3,7 +3,7 @@ import Topbar from "../../components/topbar/topbar.jsx";
 import SideBar from "../../components/sidebar/sidebar.jsx";
 import CreatePost from "../../components/createPost/createPost.jsx";
 import Feed from "../../components/feed/feed.jsx";
-import RightBar from "../../components/rightbar/rightbar.jsx";
+import RightBar from '../../components/rightBar/rightBar.jsx';
 import { useState } from "react";
 
 export const HomePage = () => {
@@ -24,8 +24,7 @@ export const HomePage = () => {
           <CreatePost postCreated={handlePostCreated} />
           <Feed refreshPosts={refreshPosts} />
         </div>
-
-        <RightBar />
+        <RightBar/>
       </div>
     </div>
   );

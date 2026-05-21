@@ -3,8 +3,7 @@ import "./profilePage.css";
 import Topbar from "../../components/topbar/topbar.jsx";
 import SideBar from "../../components/sidebar/sidebar.jsx";
 import Feed from "../../components/feed/feed.jsx";
-import RightBar from "../../components/rightbar/rightbar.jsx";
-
+import RightBar from '../../components/rightBar/rightBar.jsx';
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -14,30 +13,14 @@ import axios from 'axios';
 
 export default function Profile() {
 
-  const { user: currentUser, dispatch } = useContext(AuthContext);
+  const { user:currentUser, dispatch } = useContext(AuthContext);
 const [followed, setFollowed] = useState(false);
 const [profileUser, setProfileUser] = useState(null);
   const { username } = useParams();
-  const handleFollow = async () => {
-  try {
-    if (followed) {
-      await unfollowUserCall(profileUser._id, currentUser._id);
-      setFollowed(false);
-    } else {
-      await followUserCall(profileUser._id, currentUser._id);
-      setFollowed(true);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 useEffect(() => {
   const fetchUser = async () => {
     try {
-      const res = await axios.get(
-        `/api/users?username=${username}`
-      );
+      const res = await axios.get(`/api/v1/users/${username}`);
       setProfileUser(res.data);
     } catch (err) {
       console.log(err);
@@ -46,8 +29,6 @@ useEffect(() => {
 
   fetchUser();
 }, [username]);
-
-
   return (
 
     <>
@@ -76,10 +57,6 @@ useEffect(() => {
               />
 
             </div>
-            <button className="followButton" onClick={handleFollow}>
-              {followed ? "Unfollow" : "Follow"}
-            </button>
-
             <div className="profileInfo">
 
               <h4 className="profileInfoName">
@@ -98,7 +75,7 @@ useEffect(() => {
 
             <Feed username={username} />
 
-            <RightBar />
+            <RightBar user={profileUser}/>
 
           </div>
 

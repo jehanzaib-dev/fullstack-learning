@@ -1,31 +1,56 @@
-import "./rightbar.css";
-import { useContext } from "react";
+import "./rightBar.css";
+import { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/authContext.js";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import axios from 'axios';
+import { followUserCall, unfollowUserCall } from "../../apiCalls/apiCalls.js";
+import { Follow, UnFollow } from "../../context/authActions.js";
 
-export default function RightBar() {
-
-  const { user } = useContext(AuthContext);
-
+export default function RightBar({user}) {
   const location = useLocation();
 
   const isProfilePage = location.pathname.includes("/profile");
+  const [isFollowed, setIsFollowed]=useState(false);
+		const {user:currentUser, dispatch}=useContext(AuthContext);
 
-  return (
-    <div className="rightBar">
+ const handleFollow = async () => {
+  try {
 
-      <div className="rightbarWrapper">
+    if (isFollowed) {
 
-        {isProfilePage
-          ? <ProfileRightBar user={user} />
-          : <HomeRightBar />
-        }
+      await unfollowUserCall(
+        user._id,
+        currentUser._id
+      );
 
-      </div>
+      dispatch(UnFollow(user._id));
 
-    </div>
+    } else {
+
+      await followUserCall(
+        user._id,
+        currentUser._id
+      );
+      dispatch(Follow(user._id));
+    }
+
+    setIsFollowed(!isFollowed);
+
+  } catch (err) {
+
+    console.log(err);
+
+  }
+};   
+
+useEffect(() => {
+  setIsFollowed(
+    currentUser.following.includes(user?._id)
   );
-}
+
+}, [currentUser, user]);
 
 /* PROFILE RIGHTBAR */
 
@@ -33,7 +58,11 @@ const ProfileRightBar = ({ user }) => {
 
   return (
     <>
-
+      {user?.username !== currentUser.username && (
+				<button className="rightbarFollowButton" onClick={handleFollow}>
+					{isFollowed ? "unFollow":"Follow"} {isFollowed ? <RemoveIcon/>:<AddIcon/>}
+					</button>
+			)}
       <h4 className="rightBarTitle">
         User Information
       </h4>
@@ -128,3 +157,18 @@ const HomeRightBar = () => {
     </>
   );
 };
+return (
+    <div className="rightBar">
+
+      <div className="rightbarWrapper">
+
+        {isProfilePage
+          ? <ProfileRightBar user={user} />
+          : <HomeRightBar />
+        }
+
+      </div>
+
+    </div>
+  );
+}
