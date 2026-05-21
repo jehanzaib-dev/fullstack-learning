@@ -1,104 +1,120 @@
+import "./sidebar.css";
 
-import './sidebar.css';
-import * as MuiIcons from "@mui/icons-material";
+import { Link, useLocation } from "react-router-dom";
 
+import RssFeedIcon from "@mui/icons-material/RssFeed";
+import ChatIcon from "@mui/icons-material/Chat";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import GroupIcon from "@mui/icons-material/Group";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import EventIcon from "@mui/icons-material/Event";
+import SchoolIcon from "@mui/icons-material/School";
 
+export default function SideBar() {
 
-export default function SideBar(){
-	const FeedIcon=MuiIcons.RssFeed;
-	const ChatIcon=MuiIcons.Chat;
-	const VideoIcon=MuiIcons.PlayCircle;
-	const GroupIcon=MuiIcons.Group;
-	const BookmarkIcon=MuiIcons.Bookmark;
-	const QuestionIcon=MuiIcons.HelpOutlineOutlined;
-	const JobIcon=MuiIcons.WorkOutlineOutlined;
-	const EventIcon=MuiIcons.Event;
-	const CourseIcon=MuiIcons.School;
+  const location = useLocation();
 
-return(
-<div className='sidebar'>
-	<div className="sidebarWrapper">
-		<ul className="sidebarList">
-			<li className="sidebarListItem">
-				<FeedIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Feed
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<ChatIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Chats
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<VideoIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Videos
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<GroupIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Groups
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<BookmarkIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Bookmarks
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<QuestionIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Questions
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<JobIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Jobs
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<EventIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Events
-				</span>
-			</li>
-			<li className="sidebarListItem">
-				<CourseIcon className="sidebarListItemIcon"/>
-				<span className="sidebarListItemText">Courses
-				</span>
-			</li>
-		</ul>
-		<button className="sidebarButton">Show more
-		</button>
-		<hr className="sidebarHr"/>
-		<ul className="sidebarFriendList">
-			
-		</ul>
-	</div>
-</div>
-	)
+  const sidebarItems = [
+    {
+      icon: <RssFeedIcon className="sidebarListItemIcon" />,
+      text: "Feed",
+      path: "/",
+    },
+    {
+      icon: <ChatIcon className="sidebarListItemIcon" />,
+      text: "Chats",
+      path: "/chats",
+    },
+    {
+      icon: <PlayCircleIcon className="sidebarListItemIcon" />,
+      text: "Videos",
+      path: "/videos",
+    },
+    {
+      icon: <GroupIcon className="sidebarListItemIcon" />,
+      text: "Groups",
+      path: "/groups",
+    },
+    {
+      icon: <BookmarkIcon className="sidebarListItemIcon" />,
+      text: "Bookmarks",
+      path: "/bookmarks",
+    },
+    {
+      icon: <HelpOutlineOutlinedIcon className="sidebarListItemIcon" />,
+      text: "Questions",
+      path: "/questions",
+    },
+    {
+      icon: <WorkOutlineOutlinedIcon className="sidebarListItemIcon" />,
+      text: "Jobs",
+      path: "/jobs",
+    },
+    {
+      icon: <EventIcon className="sidebarListItemIcon" />,
+      text: "Events",
+      path: "/events",
+    },
+    {
+      icon: <SchoolIcon className="sidebarListItemIcon" />,
+      text: "Courses",
+      path: "/courses",
+    },
+  ];
+
+  return (
+    <div className="sidebar">
+
+      <div className="sidebarWrapper">
+
+        <ul className="sidebarList">
+
+          {sidebarItems.map((item) => (
+
+            <Link
+              to={item.path}
+              className="sidebarLink"
+              key={item.text}
+            >
+
+              <li
+                className={
+                  location.pathname === item.path
+                    ? "sidebarListItem active"
+                    : "sidebarListItem"
+                }
+              >
+
+                {item.icon}
+
+                <span className="sidebarListItemText">
+                  {item.text}
+                </span>
+
+              </li>
+
+            </Link>
+
+          ))}
+
+        </ul>
+
+        <button className="sidebarButton">
+          Show More
+        </button>
+
+        <hr className="sidebarHr" />
+
+        <ul className="sidebarFriendList">
+
+          {/* FRIENDS LATER */}
+
+        </ul>
+
+      </div>
+
+    </div>
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

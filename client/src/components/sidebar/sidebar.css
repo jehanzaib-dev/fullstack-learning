@@ -14,10 +14,24 @@
 	margin: 0;
 	list-style: none;
 }
+.sidebarLink {
+  text-decoration: none;
+  color: inherit;
+}
 .sidebarListItem{
 	display: flex;
 	align-items: center;
 	margin-bottom: 20px;
+}
+.sidebarListItem:hover {
+  background-color: #f0f2f5;
+}
+
+/* ACTIVE ROUTE */
+.sidebarListItem.active {
+  background-color: #e7f3ff;
+  color: #1877f2;
+  font-weight: 500;
 }
 .sidebarListItemIcon{
 	margin-right: 15px;
@@ -38,7 +52,11 @@
 	list-style: none;
 }
 
-
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+}
 
 
 
