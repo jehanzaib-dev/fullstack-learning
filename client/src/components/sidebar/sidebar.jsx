@@ -12,8 +12,12 @@ import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import EventIcon from "@mui/icons-material/Event";
 import SchoolIcon from "@mui/icons-material/School";
 
+import {useState, useEffect} from 'react';
+import {getAllUsersCall} from '../../apiCalls/apiCalls.js';
+
 export default function SideBar() {
 
+  const [users, setUsers]=useState([]);
   const location = useLocation();
 
   const sidebarItems = [
@@ -64,6 +68,19 @@ export default function SideBar() {
     },
   ];
 
+useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const data =await getAllUsersCall(); 
+      setUsers(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  fetchUsers();
+}, []);
+
   return (
     <div className="sidebar">
 
@@ -106,10 +123,27 @@ export default function SideBar() {
         </button>
 
         <hr className="sidebarHr" />
-
+        <h3>People</h3>
         <ul className="sidebarFriendList">
+        {users.map((u) => (
+    <Link to={`/profile/${u.username}`} key={u._id} className="sidebarUserLink"
+    >
+    <li key={u._id} className="sidebarFriendItem">
 
-          {/* FRIENDS LATER */}
+      <img
+        src={u.profilePic || "/assets/person/noAvatar.jpeg"}
+        alt=""
+        className="sidebarFriendImg"
+      />
+
+      <span className="sidebarFriendName">
+        {u.username}
+      </span>
+
+    </li>
+  </Link>
+  ))}
+        
 
         </ul>
 

@@ -10,6 +10,11 @@ export const loginCall = async (userCredentials) => {
   return response.data;
 };
 
+export const getAllUsersCall=async()=>{
+  const response=await axios.get('/api/v1/users');
+  return response.data;
+}
+
 export const CreatePostCall=async(postData)=>{
   const response=await axios.post('/api/v1/posts', postData);
   return response.data;

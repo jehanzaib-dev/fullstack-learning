@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import AuthRouter from './routes/authRoutes.js';
 import PostRouter from './routes/postRoutes.js';
+import UserRouter from './routes/userRoutes.js';
 
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use('/api/v1/auth', AuthRouter);
 app.use('/api/v1/posts', PostRouter);
+app.use('/api/v1/users', UserRouter);
 
 
 mongoose.connect(process.env.MONGODB_URI).then(()=>console.log("mongoDB connected")).catch(err=>console.log(err));
