@@ -44,6 +44,19 @@
   box-shadow:
     0 4px 12px rgba(0,0,0,0.15);
 }
+.followButton {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #1877f2;
+  color: white;
+  font-weight: 500;
+}
+
+.followButton:hover {
+  background-color: #0f5bd1;
+}
 
 .profileInfo{
   display: flex;

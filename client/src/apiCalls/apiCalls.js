@@ -15,6 +15,20 @@ export const getAllUsersCall=async()=>{
   return response.data;
 }
 
+export const followUserCall = async (username) => {
+  const res = await axios.put(
+    `/api/v1/users/${username}/follow`
+  );
+  return res.data;
+};
+
+export const unfollowUserCall = async (username) => {
+  const res = await axios.put(
+    `/api/v1/users/${username}/unfollow`
+  );
+  return res.data;
+};
+
 export const CreatePostCall=async(postData)=>{
   const response=await axios.post('/api/v1/posts', postData);
   return response.data;
