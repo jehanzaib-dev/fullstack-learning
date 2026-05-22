@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/authContext.js";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import axios from 'axios';
 import { followUserCall, unfollowUserCall } from "../../apiCalls/apiCalls.js";
 import { Follow, UnFollow } from "../../context/authActions.js";
 
