@@ -219,13 +219,19 @@ box-shadow: 0px 0px 16px -8px rgba(0,0,0,1);
   background:#f5f5f5;
   padding:8px 12px;
   border-radius:8px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .commentUsername{
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   margin-right:8px;
 }
 .commentText{
+  font-size: 14px;
+}
+.commentTime{
   font-size: 12px;
+  font-style: italic;
 }

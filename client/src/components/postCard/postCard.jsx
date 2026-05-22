@@ -282,14 +282,17 @@ return (
       className="commentItem"
       key={index}
     >
-
-      <span className="commentUsername">
-        {comment.username}
-      </span>
-
-      <span className="commentText">
-        {comment.text}
-      </span>
+      <div className="commentData">
+        <span className="commentUsername">
+          {comment.username}
+        </span>
+        <span className="commentText">
+          {comment.text}
+        </span>
+      </div>
+      <span className="commentTime">
+      {format(comment.createdAt)}
+    </span>
 
     </div>
 
