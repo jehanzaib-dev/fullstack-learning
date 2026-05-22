@@ -173,7 +173,11 @@ export const addComment = async (req, res) => {
   try {
 
     const postId = req.params.id;
+    const commentText = req.body.text;
 
+    if (!commentText || !commentText.trim()) {
+      return res.status(400).json({message: "Comment cannot be empty",});
+      }
     const newComment = {
       userId: req.body.userId,
       username: req.body.username,
