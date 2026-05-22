@@ -14,7 +14,9 @@ export default function RightBar({user}) {
   const isProfilePage = location.pathname.includes("/profile");
   const [isFollowed, setIsFollowed]=useState(false);
 		const {user:currentUser, dispatch}=useContext(AuthContext);
-
+  const [followersCount, setFollowersCount] = useState(
+  user?.followers?.length || 0
+);
  const handleFollow = async () => {
   try {
 
@@ -26,6 +28,7 @@ export default function RightBar({user}) {
       );
 
       dispatch(UnFollow(user._id));
+      setFollowersCount((prev)=>prev-1);
 
     } else {
 
@@ -34,6 +37,7 @@ export default function RightBar({user}) {
         currentUser._id
       );
       dispatch(Follow(user._id));
+      setFollowersCount((prev)=>prev+1);
     }
 
     setIsFollowed(!isFollowed);
@@ -49,8 +53,11 @@ useEffect(() => {
   setIsFollowed(
     currentUser.following.includes(user?._id)
   );
-
 }, [currentUser, user]);
+
+useEffect(() => {
+  setFollowersCount(user?.followers?.length || 0);
+}, [user]);
 
 /* PROFILE RIGHTBAR */
 
@@ -58,7 +65,7 @@ const ProfileRightBar = ({ user }) => {
 
   return (
     <>
-      {user?.username !== currentUser.username && (
+      {user?._id !== currentUser._id && (
 				<button className="rightbarFollowButton" onClick={handleFollow}>
 					{isFollowed ? "unFollow":"Follow"} {isFollowed ? <RemoveIcon/>:<AddIcon/>}
 					</button>
@@ -107,11 +114,29 @@ const ProfileRightBar = ({ user }) => {
         User Friends
       </h4>
 
-      <div className="userFollowingsCntnr">
+      <div className="followInfoContainer">
 
-        {/* FRIENDS WILL COME LATER */}
+  <div className="followInfoItem">
+    <span className="followInfoCount">
+      {followersCount}
+    </span>
 
-      </div>
+    <span className="followInfoText">
+      Followers
+    </span>
+  </div>
+
+  <div className="followInfoItem">
+    <span className="followInfoCount">
+      {user?.following?.length}
+    </span>
+
+    <span className="followInfoText">
+      Following
+    </span>
+  </div>
+
+</div>
 
     </>
   );

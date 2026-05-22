@@ -53,10 +53,11 @@ export default function Topbar() {
             Homepage
         </Link>
 
+          <Link to={`/profile/${user?.username}`} className="topbarLink link">
           <span className="topbarLink">
-            Timeline
+            Profile
           </span>
-
+          </Link>
         </div>
 
         <div className="topbarIcons">

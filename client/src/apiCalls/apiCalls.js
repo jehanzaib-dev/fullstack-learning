@@ -85,3 +85,16 @@ export const LikePostCall = async (postId, userId) => {
 
   return response.data;
 }; 
+
+export const addCommentCall = async (
+  postId,
+  commentData
+) => {
+
+  const response = await axios.put(
+    `/api/v1/posts/${postId}/comment`,
+    commentData
+  );
+
+  return response.data;
+};

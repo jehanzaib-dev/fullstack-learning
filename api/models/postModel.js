@@ -16,6 +16,26 @@ const postSchema=new Schema({
 		type:Array,
 		default:[],
 	},
+	comments: [
+  {
+    userId: {
+      type: String,
+    },
+
+    username: {
+      type: String,
+    },
+
+    text: {
+      type: String,
+    },
+
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+],
 },
 {
 	timestamps:true,

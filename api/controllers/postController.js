@@ -167,3 +167,38 @@ export const editPost = async (req, res) => {
 
   }
 };
+
+export const addComment = async (req, res) => {
+
+  try {
+
+    const postId = req.params.id;
+
+    const newComment = {
+      userId: req.body.userId,
+      username: req.body.username,
+      text: req.body.text,
+    };
+
+    const updatedPost = await postModel.findByIdAndUpdate(
+      postId,
+      {
+        $push: {
+          comments: newComment,
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedPost);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+
+  }
+};

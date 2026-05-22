@@ -83,6 +83,28 @@
 .rightbarFollowButton:focus{
 	outline: none;
 }
+.followInfoContainer{
+  display:flex;
+  align-items:center;
+  gap:30px;
+  margin:20px 0;
+}
+
+.followInfoItem{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.followInfoCount{
+  font-size:20px;
+  font-weight:700;
+}
+
+.followInfoText{
+  font-size:14px;
+  color:gray;
+}
 @media (max-width: 900px) {
   .rightBar {
     display: none;

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./postCard.css";
 import {format} from 'timeago.js';
 import {AuthContext} from '../../context/authContext.js';
-import { LikePostCall, DeletePostCall, EditPostCall } from "../../apiCalls/apiCalls.js";
+import { LikePostCall, DeletePostCall, EditPostCall, addCommentCall } from "../../apiCalls/apiCalls.js";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
 
@@ -17,8 +17,8 @@ export default function PostCard({post, setPosts}) {
   const [backendError, setBackendError]=useState(null);
   const isOwner = post.userId === user._id;
   const [editMode, setEditMode] = useState(false);
-
-const [editedDesc, setEditedDesc] = useState(post.desc);
+  const [commentText, setCommentText]=useState('');
+  const [editedDesc, setEditedDesc] = useState(post.desc);
 
 const [isUpdating, setIsUpdating] = useState(false);
 
@@ -99,6 +99,36 @@ const handleEdit = async () => {
   } finally {
 
     setIsUpdating(false);
+
+  }
+};
+
+  const handleComment = async () => {
+
+  if (!commentText.trim()) return;
+
+  try {
+
+    const updatedPost = await addCommentCall(
+      post._id,
+      {
+        userId: user._id,
+        username: user.username,
+        text: commentText,
+      }
+    );
+
+    setPosts((prevPosts) =>
+      prevPosts.map((p) =>
+        p._id === post._id ? updatedPost : p
+      )
+    );
+
+    setCommentText("");
+
+  } catch (err) {
+
+    console.log(err);
 
   }
 };
@@ -218,9 +248,55 @@ return (
       </span>
     </div>
     <div className="postBottomRight">
-      <span className="postCommentText">4 comments</span>
+      <div className="commentSection">
+
+  <input
+    type="text"
+    placeholder="Write a comment..."
+    value={commentText}
+    onChange={(e) =>
+      setCommentText(e.target.value)
+    }
+    className="commentInput"
+  />
+  <button
+    onClick={handleComment}
+    className="commentButton"
+  >
+    Comment
+  </button>
+    
+
+</div>
+
     </div>
+
+
   </div>
+  {post.comments?.length>0 && (
+  <div className="commentsContainer">
+
+  {post.comments?.map((comment, index) => (
+
+    <div
+      className="commentItem"
+      key={index}
+    >
+
+      <span className="commentUsername">
+        {comment.username}
+      </span>
+
+      <span className="commentText">
+        {comment.text}
+      </span>
+
+    </div>
+
+  ))}
+
+</div>)
+}
   <div className="errorText">
         {
           backendError && <p>{backendError}</p>
