@@ -205,6 +205,13 @@ box-shadow: 0px 0px 16px -8px rgba(0,0,0,1);
   background-color:#1877f2 ;
   color: white;
 }
+.commentButton:hover{
+  opacity: 0.9;
+}
+.commentButton:disabled{
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
 .commentsContainer{
   margin-top:15px;

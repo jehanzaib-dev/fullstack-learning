@@ -261,7 +261,7 @@ return (
   />
   <button
     onClick={handleComment}
-    className="commentButton"
+    className="commentButton" disabled={!commentText.trim()}
   >
     Comment
   </button>
