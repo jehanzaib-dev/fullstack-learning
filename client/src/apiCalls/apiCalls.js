@@ -109,3 +109,27 @@ export const getTimelinePostsCall =
 
     return response.data;
 };
+
+export const uploadImageCall =
+  async (formData) => {
+
+    const response =
+      await axios.post(
+        "/api/v1/upload",
+        formData
+      );
+
+    return response.data;
+};
+export const updateUserCall = async (
+  userId,
+  data
+) => {
+
+  const response = await axios.put(
+    `/api/v1/users/${userId}`,
+    data
+  );
+
+  return response.data;
+};

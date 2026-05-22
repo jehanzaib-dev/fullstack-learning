@@ -107,3 +107,29 @@ export const unfollowUser = async (req, res) => {
   }
 };
 
+export const updateUser = async (req, res) => {
+  try {
+
+    const userId = req.params.id;
+
+    const updatedUser =
+      await userModel.findByIdAndUpdate(
+        userId,
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
+
+    res.status(200).json(updatedUser);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+
+  }
+};

@@ -1,7 +1,7 @@
 import "./createPost.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext.js";
-import { CreatePostCall } from "../../apiCalls/apiCalls.js";
+import { CreatePostCall, uploadImageCall } from "../../apiCalls/apiCalls.js";
 
 
 export default function CreatePost({postCreated}) {
@@ -11,6 +11,7 @@ export default function CreatePost({postCreated}) {
 
   // Controlled textarea state
   const [desc, setDesc] = useState("");
+  const [file, setFile] = useState(null);
 
   // Optional loading state
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,20 +25,29 @@ export default function CreatePost({postCreated}) {
     e.preventDefault();
 	setFrontendError(null);
 	setBackendError(null);
-
-    // Frontend validation
-    if (!desc.trim()) {
+  if (!desc.trim()) {
       setFrontendError("Post cannot be empty");
       return;
     }
+    let filename='';
+    if (file) {
 
-    // Build post payload
-    const newPost = {
-      userId: user._id,
-      desc: desc,
-    };
+  const data = new FormData();
 
-    try {
+  filename =
+    Date.now() + file.name;
+
+  data.append("file", file);
+  const uploadedImage =
+    await uploadImageCall(data);
+  filename=uploadedImage.filename;
+    }
+  const newPost= {
+    userId:user._id,
+    desc:desc,
+    img:filename,
+  };
+  try {
 
       // Start loading
       setIsSubmitting(true);
@@ -47,6 +57,7 @@ export default function CreatePost({postCreated}) {
       postCreated();
 
       setDesc("");
+      setFile(null);
 
       // Optional feedback
       console.log("Post created successfully");
@@ -85,7 +96,6 @@ export default function CreatePost({postCreated}) {
         />
 
       </div>
-
       <hr className="createPostDivider"/>
 
       {/* Bottom Section */}
@@ -93,7 +103,7 @@ export default function CreatePost({postCreated}) {
 
         <div className="optionsCntnr">
 
-          <span className="postOption">Photo</span>
+          <input type="file" onChange={(e) =>setFile(e.target.files[0])}/>
           <span className="postOption">Document</span>
           <span className="postOption">Location</span>
           <span className="postOption">Feeling</span>

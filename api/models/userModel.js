@@ -22,9 +22,13 @@ const userSchema=new Schema({
         min:8,
         max:20,
     },
-    profilePicture:{
+    profilePic:{
     type:String,
     default:""
+    },
+    coverPic: {
+        type:String,
+        default:""
     },
     followers:{
         type:Array,

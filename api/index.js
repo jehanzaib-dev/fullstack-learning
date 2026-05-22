@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import AuthRouter from './routes/authRoutes.js';
 import PostRouter from './routes/postRoutes.js';
 import UserRouter from './routes/userRoutes.js';
+import uploadRouter from './routes/uploadRoute.js';
 
 
 dotenv.config();
@@ -15,6 +16,9 @@ const app=express();
 
 app.use(express.json());
 app.use(cors());
+app.use("/images",
+	express.static("public/images"));
+app.use("/api/v1/upload", uploadRouter);
 
 
 app.use('/api/v1/auth', AuthRouter);

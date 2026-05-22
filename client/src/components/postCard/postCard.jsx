@@ -228,8 +228,8 @@ return (
 }
         {
           post.img && (
-          <img
-          src={post.img} alt="postImage"
+          <img src={`http://localhost:3000/images/${post.img}`}
+           alt="postImage"
           className="postImg"
         />
           )
