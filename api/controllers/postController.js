@@ -206,3 +206,60 @@ export const addComment = async (req, res) => {
 
   }
 };
+
+export const getTimelinePosts = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const currentUser =
+      await userModel.findById(
+        req.params.userId
+      );
+
+    const userPosts =
+      await postModel.find({
+        userId: currentUser._id,
+      });
+
+    const followingPosts =
+      await postModel.find({
+        userId: {
+          $in: currentUser.following,
+        },
+      });
+
+    const allPosts = [
+      ...userPosts,
+      ...followingPosts,
+    ];
+
+    const enrichedPosts =
+      await Promise.all(
+        allPosts.map((post) =>
+          enrichPost(post)
+        )
+      );
+
+    enrichedPosts.sort(
+      (a, b) =>
+        new Date(b.createdAt) -
+        new Date(a.createdAt)
+    );
+
+    res.status(200).json(
+      enrichedPosts
+    );
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+
+  }
+};

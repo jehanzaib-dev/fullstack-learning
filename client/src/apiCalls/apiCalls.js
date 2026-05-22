@@ -98,3 +98,14 @@ export const addCommentCall = async (
 
   return response.data;
 };
+
+export const getTimelinePostsCall =
+  async (userId) => {
+
+    const response =
+      await axios.get(
+        `/api/v1/posts/timeline/${userId}`
+      );
+
+    return response.data;
+};

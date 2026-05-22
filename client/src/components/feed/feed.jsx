@@ -1,11 +1,14 @@
 import "./feed.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import PostCard from "../postCard/postCard.jsx";
 
-import { getUserPostsCall,getAllPostsCall } from "../../apiCalls/apiCalls.js";
+import { getUserPostsCall, getTimelinePostsCall } from "../../apiCalls/apiCalls.js";
+import { AuthContext } from "../../context/authContext.js";
+
 
 export default function Feed({username, refreshPosts}) {
 
+  const {user}=useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [backendError, setBackendError] = useState(null);
@@ -18,7 +21,7 @@ export default function Feed({username, refreshPosts}) {
         setBackendError(null);
         setIsLoading(true);
 
-        const data = username ? await getUserPostsCall(username): await getAllPostsCall();
+        const data = username ? await getUserPostsCall(username): await getTimelinePostsCall(user._id);
 
         setPosts(data);
 
@@ -40,7 +43,7 @@ export default function Feed({username, refreshPosts}) {
 
     fetchPosts();
 
-  }, [username, refreshPosts]);
+  }, [user,username, refreshPosts]);
 
   return (
     <div className="feed">

@@ -1,5 +1,5 @@
 import Router from 'express';
-import {CreatePost, deletePost, getAllPosts, getUserPosts, likePost, editPost, addComment} from '../controllers/postController.js';
+import {CreatePost, deletePost, getAllPosts, getUserPosts, likePost, editPost, addComment, getTimelinePosts} from '../controllers/postController.js';
 
 const postRouter=Router();
 
@@ -10,6 +10,7 @@ postRouter.route('/:id/like').put(likePost);
 postRouter.route('/:id').delete(deletePost);
 postRouter.route('/:id').put(editPost);
 postRouter.route('/:id/comment').put(addComment);
+postRouter.route('/timeline/:userId').get(getTimelinePosts);
 
 
 export default postRouter;
