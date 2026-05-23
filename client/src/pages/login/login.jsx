@@ -9,12 +9,14 @@ export default function LoginPage() {
   const email = useRef();
   const password = useRef();
     const [frontendError, setFrontendError]=useState(null);
+    const [backendError, setBackendError]=useState(null);
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFrontendError(null);
+    setBackendError(null);
 
     const emailValue = email.current.value;
     const passwordValue = password.current.value;
@@ -35,6 +37,8 @@ export default function LoginPage() {
 
     } catch (err) {
       dispatch(LoginFailure(err.response?.data?.message || "Server not running please check"));
+      const errorMessage=err.response?.data?.message || 'cannot connect to server';
+      setBackendError(errorMessage);
     }
   };
 
@@ -65,7 +69,8 @@ return(
                 </div>
             </form>
             {
-            frontendError ? <p>{frontendError}</p>:error && <p>{error}</p>
+            frontendError ? <p>{frontendError}</p>: backendError && <p>{backendError}
+            </p>
         }
         </div>
     </div>

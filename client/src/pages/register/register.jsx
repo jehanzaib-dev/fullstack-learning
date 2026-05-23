@@ -81,10 +81,10 @@ export const RegisterPage=()=>{
                     </Link>
                 </div>
             </form>
-        </div>
         {
             frontendError ? <p>{frontendError}</p>:backendError && <p>{backendError}</p>
         }
+        </div>
     </div>
 </div>
     );
