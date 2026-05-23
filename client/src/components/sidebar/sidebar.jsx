@@ -17,6 +17,7 @@ import {getAllUsersCall} from '../../apiCalls/apiCalls.js';
 
 export default function SideBar() {
 
+  const PF='http://localhost:3000/images/';
   const [users, setUsers]=useState([]);
   const location = useLocation();
 
@@ -131,7 +132,7 @@ useEffect(() => {
     <li key={u._id} className="sidebarFriendItem">
 
       <img
-        src={u.profilePic || "/assets/person/noAvatar.jpeg"}
+        src={u.profilePic ? PF+u.profilePic : "/assets/person/noAvatar.jpeg"}
         alt=""
         className="sidebarFriendImg"
       />

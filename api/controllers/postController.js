@@ -191,7 +191,7 @@ export const addComment = async (req, res) => {
           comments: newComment,
         },
       },
-      { new: true }
+      { returnDocument:'after' }
     );
 
     res.status(200).json(updatedPost);

@@ -12,7 +12,7 @@ import {Follow, UnFollow, UpdateUser} from '../../context/authActions.js';
 import axios from 'axios';
 
 export default function Profile() {
-
+  const PF='http://localhost:3000/images/';
   const { user:currentUser, dispatch } = useContext(AuthContext);
   const [file, setFile] = useState(null);
 const [uploadType, setUploadType] = useState("");
@@ -20,43 +20,45 @@ const [followed, setFollowed] = useState(false);
 const [profileUser, setProfileUser] = useState(null);
   const { username } = useParams();
 
-  const handleUpload = async () => {
+ const handleImageUpload =
+  async (file, type) => {
 
-  if (!file) return;
+    if (!file) return;
 
-  try {
+    try {
 
-    const data = new FormData();
+      const data =
+        new FormData();
 
-    const filename =
-      Date.now() + file.name;
+      data.append(
+        "file",
+        file
+      );
 
-    data.append("file", file);
+      const uploadRes =
+        await uploadImageCall(data);
+      console.log(uploadRes);
 
-    const uploadRes =
-      await uploadImageCall(data);
+      const updatedUser =
+        await updateUserCall(
+          currentUser._id,
+          {
+            [type]:
+              uploadRes.filename,
+          }
+        );
 
-    const imageUrl =
-      uploadRes.filename;
+      dispatch(UpdateUser(updatedUser));
 
-    const updatedUser = await updateUserCall(
-      currentUser._id,
-      {
-        [uploadType]: imageUrl,
-      }
-    );
+    } catch (err) {
 
-    dispatch(UpdateUser(updatedUser));
+      console.log(err);
 
-    setFile(null);
-    setUploadType("");
+    }
+}; 
 
-  } catch (err) {
 
-    console.log(err);
 
-  }
-};
 useEffect(() => {
   const fetchUser = async () => {
     try {
@@ -78,43 +80,47 @@ useEffect(() => {
 
         <SideBar />
 
-        <div className="profileRight">
-
-          <div className="profileRightTop">
-
-            <div className="profileCover">
-            <input
+  <div className="profileRight">
+   <div className="profileRightTop">
+    <div className="profileCover">
+     <input
   type="file"
   id="profileInput"
-  style={{ display: "none" }}
+  hidden
   onChange={(e) => {
-    setFile(e.target.files[0]);
-    setUploadType("profilePic");
+
+    console.log("PROFILE INPUT WORKING");
+
+    handleImageUpload(
+      e.target.files[0],
+      "profilePic"
+    );
+
   }}
 />
-
-<input
+ <input
   type="file"
   id="coverInput"
-  style={{ display: "none" }}
+  hidden
   onChange={(e) => {
-    setFile(e.target.files[0]);
-    setUploadType("coverPic");
+
+    console.log("COVER INPUT WORKING");
+
+    handleImageUpload(
+      e.target.files[0],
+      "coverPic"
+    );
+
   }}
 />
-
-              <img
-                className="profileCoverImg"
-                src={currentUser.coverPic}
-                alt=""
-              />
-              <label htmlFor="coverInput" className="editCoverBtn">
-    Change Cover
-  </label>
+       <img className="profileCoverImg"src={currentUser.coverPic ? PF+currentUser.coverPic : '/assets/post/1.jpeg'}alt=""/>
+       <label htmlFor="coverInput" className="editCoverBtn">
+        Change Cover
+       </label>
 
               <img
                 className="profileUserImg"
-                src={currentUser.profilePic}
+                src={currentUser.profilePic ? PF+currentUser.profilePic:'/assets/person/noAvatar.jpeg'}
                 alt=""
               />
             <label htmlFor="profileInput" className="editProfileBtn">

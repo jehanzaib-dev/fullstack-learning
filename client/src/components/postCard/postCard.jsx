@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function PostCard({post, setPosts}) {
 
+  const PF='http://localhost:3000/images/';
   const {user}=useContext(AuthContext);
   const [showMenu, setShowMenu]=useState(false);
   const [like, setLike]=useState(post.likes.length);
@@ -138,9 +139,7 @@ return (
   <div className="postTop">
     <div className="postTopLeft">
       <Link to={`/profile/${post.user?.username}`}>
-      <img src={
-      post.user?.profilePicture
-      || "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
+      <img src={ user.profilePic ? PF+user.profilePic : "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
       </Link>
       <div className="postUserInfo">
       <Link to={`/profile/${post.user?.username}`} className="profileLink">

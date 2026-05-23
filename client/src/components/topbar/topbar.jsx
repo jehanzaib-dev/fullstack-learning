@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 
 export default function Topbar() {
 
+  const PF='http://localhost:3000/images/';
   const { user, dispatch } = useContext(AuthContext);
   const navigate=useNavigate();
 
@@ -77,7 +78,7 @@ export default function Topbar() {
         <div className="topbarProfile">
 
           <img
-            src={user?.profilePic || '/assets/person/noAvatar.jpeg'}
+            src={user.profilePic ? PF+user.profilePic:'/assets/person/noAvatar.jpeg'}
             alt="profile"
             className="topbarImg"
           />

@@ -6,6 +6,7 @@ import { CreatePostCall, uploadImageCall } from "../../apiCalls/apiCalls.js";
 
 export default function CreatePost({postCreated}) {
 
+    const PF='http://localhost:3000/images/';
   // Current logged-in user
   const { user } = useContext(AuthContext);
 
@@ -83,7 +84,7 @@ export default function CreatePost({postCreated}) {
       <div className="topSection">
 
         <img
-          src={user?.profilePicture || '/assets/person/noAvatar.jpeg'}
+          src={user.profilePic ? PF+user.profilePic : '/assets/person/noAvatar.jpeg'}
           alt="profile"
           className="profilePic"
         />
