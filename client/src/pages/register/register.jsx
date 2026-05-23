@@ -1,3 +1,4 @@
+import './register.css';
 import { useRef, useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import { RegisterCall } from "../../apiCalls/apiCalls.js";
