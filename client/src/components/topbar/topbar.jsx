@@ -13,6 +13,7 @@ export default function Topbar() {
   const { user, dispatch } = useContext(AuthContext);
   const navigate=useNavigate();
 
+  console.log(user);
   const handleLogout = () => {
     dispatch(Logout());
     navigate('/login');
@@ -78,7 +79,7 @@ export default function Topbar() {
         <div className="topbarProfile">
 
           <img
-            src={user.profilePic ? PF+user.profilePic:'/assets/person/noAvatar.jpeg'}
+            src={user?.profilePic ? PF + user.profilePic : '/assets/person/noAvatar.jpeg'}
             alt="profile"
             className="topbarImg"
           />

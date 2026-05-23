@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "./postCard.css";
 import {format} from 'timeago.js';
 import {AuthContext} from '../../context/authContext.js';
-import { LikePostCall, DeletePostCall, EditPostCall, addCommentCall } from "../../apiCalls/apiCalls.js";
+import { LikePostCall, DeletePostCall, EditPostCall, addCommentCall, getOneUserByIdCall } from "../../apiCalls/apiCalls.js";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
 
@@ -11,6 +11,7 @@ export default function PostCard({post, setPosts}) {
 
   const PF='http://localhost:3000/images/';
   const {user}=useContext(AuthContext);
+  const [postCreator, setPostCreator]=useState(null);
   const [showMenu, setShowMenu]=useState(false);
   const [like, setLike]=useState(post.likes.length);
   const [isLiked, setIsLiked]=useState(post.likes.includes(user._id));
@@ -22,6 +23,7 @@ export default function PostCard({post, setPosts}) {
   const [editedDesc, setEditedDesc] = useState(post.desc);
 
 const [isUpdating, setIsUpdating] = useState(false);
+  const displayUser=post.userId === user._id ? user : postCreator;
 
   const handleLike = async () => {
     if(liking) return;
@@ -134,12 +136,35 @@ const handleEdit = async () => {
   }
 };
 
+ useEffect(() => {
+
+  const fetchUser = async () => {
+
+    try {
+
+      const data =
+        await getOneUserByIdCall(
+          post.userId
+        );
+
+      setPostCreator(data);
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+  };
+
+  fetchUser();
+
+}, [post.userId]); 
 return (
 <div className="postCard">
   <div className="postTop">
     <div className="postTopLeft">
       <Link to={`/profile/${post.user?.username}`}>
-      <img src={ post.user?.profilePic ? PF+post.user.profilePic : "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
+      <img src={ displayUser?.profilePic ? PF + displayUser.profilePic : "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
       </Link>
       <div className="postUserInfo">
       <Link to={`/profile/${post.user?.username}`} className="profileLink">
@@ -227,7 +252,7 @@ return (
 }
         {
           post.img && (
-          <img src={`http://localhost:3000/images/${post.img}`}
+          <img src={PF + post.img}
            alt="postImage"
           className="postImg"
         />

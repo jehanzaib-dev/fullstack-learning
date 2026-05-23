@@ -32,6 +32,27 @@ export const getUserByUsername = async (req, res) => {
   }
 };
 
+export const getUserById =
+  async (req, res) => {
+
+    try {
+
+      const user =
+        await userModel
+          .findById(req.params.id)
+          .select("-password");
+
+      res.status(200).json(user);
+
+    } catch (err) {
+
+      console.log(err);
+
+      res.status(500).json(err);
+
+    }
+};
+
 export const followUser = async (req, res) => {
   try {
 
@@ -110,26 +131,22 @@ export const unfollowUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
 
-    const userId = req.params.id;
-
     const updatedUser =
-      await userModel.findByIdAndUpdate(
-        userId,
-        {
-          $set: req.body,
-        },
-        { new: true }
-      );
+      await userModel
+        .findByIdAndUpdate(
+          req.params.id,
+          {
+            $set: req.body,
+          },
+          { new: true }
+        )
+        .select("-password");
 
     res.status(200).json(updatedUser);
 
   } catch (err) {
 
-    console.log(err);
-
-    res.status(500).json({
-      message: "Server error",
-    });
+    res.status(500).json(err);
 
   }
 };

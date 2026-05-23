@@ -44,10 +44,15 @@ const AuthReducer=(state, action)=>{
                 error:false
             };
         case "UPDATE_USER":
-        return {
-                ...state,
-                user: action.payload,
-            };
+  localStorage.setItem(
+    "user",
+    JSON.stringify(action.payload)
+  );
+
+  return {
+    ...state,
+    user: action.payload,
+  };
 
         default:
             return state;

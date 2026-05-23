@@ -14,12 +14,26 @@ import SchoolIcon from "@mui/icons-material/School";
 
 import {useState, useEffect} from 'react';
 import {getAllUsersCall} from '../../apiCalls/apiCalls.js';
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext.js";
 
 export default function SideBar() {
 
   const PF='http://localhost:3000/images/';
+  const {user}=useContext(AuthContext);
   const [users, setUsers]=useState([]);
   const location = useLocation();
+  const displayUsers = users.map((u) => {
+
+  if (u._id === user._id) {
+
+    return user;
+
+  }
+
+  return u;
+
+});
 
   const sidebarItems = [
     {
@@ -126,7 +140,8 @@ useEffect(() => {
         <hr className="sidebarHr" />
         <h3>People</h3>
         <ul className="sidebarFriendList">
-        {users.map((u) => (
+        {
+        displayUsers.map((u) => (
     <Link to={`/profile/${u.username}`} key={u._id} className="sidebarUserLink"
     >
     <li key={u._id} className="sidebarFriendItem">

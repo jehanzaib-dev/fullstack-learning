@@ -20,6 +20,17 @@ export const getOneUserCall=async(username)=>{
   return response.data;
 }
 
+export const getOneUserByIdCall =
+  async (id) => {
+
+    const response =
+      await axios.get(
+        `/api/v1/users/id/${id}`
+      );
+
+    return response.data;
+};
+
 export const followUserCall = async (targetUserId, userId) => {
 
   const response = await axios.put(
@@ -110,17 +121,16 @@ export const getTimelinePostsCall =
     return response.data;
 };
 
-export const uploadImageCall =
-  async (formData) => {
+export const uploadImageCall = async (formData) => {
 
-    const response =
-      await axios.post(
-        "/api/v1/upload",
-        formData
-      );
+  const response = await axios.post(
+    "/api/v1/upload",
+    formData
+  );
 
-    return response.data;
+  return response.data;
 };
+
 export const updateUserCall = async (
   userId,
   data

@@ -19,62 +19,86 @@ export default function CreatePost({postCreated}) {
   const [FrontendError, setFrontendError]=useState(null);
   const [backendError, setBackendError]=useState(null);
 
-  // Form submit handler
+
   const handleShare = async (e) => {
 
-    // Prevent page reload
-    e.preventDefault();
-	setFrontendError(null);
-	setBackendError(null);
-  if (!desc.trim()) {
-      setFrontendError("Post cannot be empty");
-      return;
-    }
-    let filename='';
-    if (file) {
+  e.preventDefault();
 
-  const data = new FormData();
+  setFrontendError(null);
+  setBackendError(null);
 
-  filename =
-    Date.now() + file.name;
+  if (!desc.trim() && !file) {
+    setFrontendError(
+      "Post cannot be empty"
+    );
+    return;
+  }
 
-  data.append("file", file);
-  const uploadedImage =
-    await uploadImageCall(data);
-  filename=uploadedImage.filename;
-    }
-  const newPost= {
-    userId:user._id,
-    desc:desc,
-    img:filename,
-  };
   try {
 
-      // Start loading
-      setIsSubmitting(true);
+    setIsSubmitting(true);
 
-      // Send request to backend
-      await CreatePostCall(newPost);
-      postCreated();
+    let imageName = "";
 
-      setDesc("");
-      setFile(null);
+    // IMAGE UPLOAD
+    if (file) {
 
-      // Optional feedback
-      console.log("Post created successfully");
+      const data =
+        new FormData();
 
-    } catch (err) {
-		console.log(err);
-		const errorMessage=err.response?.data?.message || "Server not running please check";
-		setBackendError(errorMessage);
+      data.append("file", file);
 
-    } finally {
+      const uploadRes =
+        await uploadImageCall(data);
 
-      // Stop loading regardless of success/failure
-      setIsSubmitting(false);
+      imageName =
+        uploadRes.filename;
     }
-  };
 
+    // CREATE POST OBJECT
+    const newPost = {
+
+      userId: user._id,
+
+      desc: desc,
+
+      img: imageName,
+
+    };
+
+    // CREATE POST
+    await CreatePostCall(newPost);
+
+    // RESET STATES
+    setDesc("");
+
+    setFile(null);
+
+    // OPTIONAL REFRESH
+    postCreated();
+
+    console.log(
+      "Post created successfully"
+    );
+
+  } catch (err) {
+
+    console.log(err);
+
+    const errorMessage =
+      err.response?.data?.message ||
+      "Server error";
+
+    setBackendError(errorMessage);
+
+  } finally {
+
+    setIsSubmitting(false);
+
+  }
+};
+
+  
   return (
     <div className="createPostCard">
     <form

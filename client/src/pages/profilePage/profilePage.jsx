@@ -21,41 +21,39 @@ const [profileUser, setProfileUser] = useState(null);
   const { username } = useParams();
 const isOwnProfile=currentUser._id === profileUser?._id;
 
- const handleImageUpload =
-  async (file, type) => {
+ const handleImageUpload = async (file, type) => {
 
-    if (!file) return;
+  if (!file) return;
 
-    try {
+  try {
 
-      const data =
-        new FormData();
+    const data = new FormData();
 
-      data.append(
-        "file",
-        file
+    data.append("file", file);
+
+    const uploadRes =
+      await uploadImageCall(data);
+
+    const updatedUser =
+      await updateUserCall(
+        currentUser._id,
+        {
+          [type]: uploadRes.filename,
+        }
       );
 
-      const uploadRes =
-        await uploadImageCall(data);
-      console.log(uploadRes);
+    dispatch({
+      type: "UPDATE_USER",
+      payload: updatedUser,
+    });
 
-      const updatedUser =
-        await updateUserCall(
-          currentUser._id,
-          {
-            [type]:
-              uploadRes.filename,
-          }
-        );
+    setProfileUser(updatedUser);
 
-      dispatch(UpdateUser(updatedUser));
+  } catch (err) {
 
-    } catch (err) {
+    console.log(err);
 
-      console.log(err);
-
-    }
+  }
 }; 
 
 
