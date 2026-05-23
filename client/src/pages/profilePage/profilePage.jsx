@@ -19,6 +19,7 @@ const [uploadType, setUploadType] = useState("");
 const [followed, setFollowed] = useState(false);
 const [profileUser, setProfileUser] = useState(null);
   const { username } = useParams();
+const isOwnProfile=currentUser._id === profileUser?._id;
 
  const handleImageUpload =
   async (file, type) => {
@@ -113,19 +114,27 @@ useEffect(() => {
 
   }}
 />
-       <img className="profileCoverImg"src={currentUser.coverPic ? PF+currentUser.coverPic : '/assets/post/1.jpeg'}alt=""/>
-       <label htmlFor="coverInput" className="editCoverBtn">
+       <img className="profileCoverImg"src={profileUser?.coverPic ? PF+profileUser.coverPic : '/assets/post/1.jpeg'}alt=""/>
+       {isOwnProfile && (
+        <label htmlFor="coverInput" className="editCoverBtn">
         Change Cover
-       </label>
+       </label>)
+       }
+       
 
               <img
                 className="profileUserImg"
-                src={currentUser.profilePic ? PF+currentUser.profilePic:'/assets/person/noAvatar.jpeg'}
+                src={profileUser?.profilePic ? PF+profileUser.profilePic:'/assets/person/noAvatar.jpeg'}
                 alt=""
               />
-            <label htmlFor="profileInput" className="editProfileBtn">
+            {
+              isOwnProfile && (
+              <label htmlFor="profileInput" className="editProfileBtn">
     Change Photo
-  </label>  
+  </label>
+              )
+            }
+              
 
             </div>
             <div className="profileInfo">

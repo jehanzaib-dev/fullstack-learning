@@ -139,7 +139,7 @@ return (
   <div className="postTop">
     <div className="postTopLeft">
       <Link to={`/profile/${post.user?.username}`}>
-      <img src={ user.profilePic ? PF+user.profilePic : "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
+      <img src={ post.user?.profilePic ? PF+post.user.profilePic : "/assets/person/noAvatar.jpeg"} alt="profile" className="postProfileImg"/>
       </Link>
       <div className="postUserInfo">
       <Link to={`/profile/${post.user?.username}`} className="profileLink">
