@@ -233,14 +233,14 @@ box-shadow: 0px 0px 16px -8px rgba(0,0,0,1);
 }
 
 .commentUsername{
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   margin-right:8px;
 }
 .commentText{
-  font-size: 14px;
+  font-size: 12px;
 }
 .commentTime{
-  font-size: 12px;
+  font-size: 10px;
   font-style: italic;
 }
