@@ -144,7 +144,6 @@ export default function CreatePost({postCreated}) {
           >
             {isSubmitting ? "Sharing..." : "Share"}
           </button>
-
         </div>
 
       </div>

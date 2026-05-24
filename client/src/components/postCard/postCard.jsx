@@ -48,7 +48,6 @@ const [isUpdating, setIsUpdating] = useState(false);
 const handleDelete = async () => {
 
   try {
-
     await DeletePostCall(post._id, user._id);
 
     setPosts((prevPosts) =>

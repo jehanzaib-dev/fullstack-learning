@@ -40,7 +40,6 @@ export default function Feed({username, refreshPosts}) {
         setIsLoading(false);
       }
     };
-
     fetchPosts();
 
   }, [user,username, refreshPosts]);

@@ -42,9 +42,7 @@ export default function RightBar({user}) {
     setIsFollowed(!isFollowed);
 
   } catch (err) {
-
     console.log(err);
-
   }
 };   
 

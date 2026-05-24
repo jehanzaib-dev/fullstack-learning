@@ -32,7 +32,6 @@ export default function SideBar() {
   }
 
   return u;
-
 });
 
   const sidebarItems = [

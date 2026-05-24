@@ -16,7 +16,6 @@ export const HomePage = () => {
   return (
     <div className="homePage">
       <Topbar />
-
       <div className="homeContainer">
         <SideBar />
 

@@ -54,8 +54,7 @@ export const RegisterPage=()=>{
         } finally{
             setLoading(false);
         }
-    }
-    
+    }    
     return(
 <div className="Page">
     <div className="registerWrapper">
