@@ -223,7 +223,7 @@ export const getTimelinePosts = async (
     userId: {
           $in: [
               currentUser._id,
-              ...currentUser.following
+              ...currentUser.following,
               ]
             }
     }).sort({ createdAt: -1 });
@@ -234,12 +234,6 @@ export const getTimelinePosts = async (
           enrichPost(post)
         )
       );
-
-    enrichedPosts.sort(
-      (a, b) =>
-        new Date(b.createdAt) -
-        new Date(a.createdAt)
-    );
 
     res.status(200).json(
       enrichedPosts
