@@ -69,8 +69,7 @@ export default function Topbar() {
           <input
             type="text"
             placeholder="Search friends, posts..."
-            className="searchInput"
-            value={searchTerm} onChange={handleSearch}
+            className="searchInput" value={searchTerm} onChange={handleSearch}
           />
           {
           searchTerm && filteredUsers.length > 0 && (
