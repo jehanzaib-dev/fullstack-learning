@@ -1,23 +1,52 @@
 
 import "./topbar.css";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/authContext.js";
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../../context/authActions";
 import {Link} from 'react-router-dom';
-
+import {getAllUsersCall} from '../../apiCalls/apiCalls.js';
 
 export default function Topbar() {
 
   const PF='http://localhost:3000/images/';
+  const [searchTerm, setSearchTerm] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const { user, dispatch } = useContext(AuthContext);
   const navigate=useNavigate();
 
   console.log(user);
+
+  const handleSearch = (e) => {
+   const value = e.target.value;
+   setSearchTerm(value);
+   const matches = allUsers.filter((user) =>
+      user.username
+         .toLowerCase()
+         .includes(value.toLowerCase())
+   );
+   setFilteredUsers(matches);
+};
+
   const handleLogout = () => {
     dispatch(Logout());
     navigate('/login');
   };
+
+
+  useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const data =await getAllUsersCall(); 
+      setAllUsers(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  fetchUsers();
+}, []);
+
 
   return (
 
@@ -41,7 +70,44 @@ export default function Topbar() {
             type="text"
             placeholder="Search friends, posts..."
             className="searchInput"
+            value={searchTerm} onChange={handleSearch}
           />
+          {
+          searchTerm && filteredUsers.length > 0 && (
+            <div className="searchResults">
+              {
+              filteredUsers.map((user) => (
+              <div
+                  key={user._id}
+                  className="searchUser"
+                  onClick={() => {
+
+   navigate(`/profile/${user?.username}`);
+
+   setSearchTerm("");
+
+   setFilteredUsers([]);
+
+}}
+               >
+  <img
+            src={user?.profilePic ? PF + user.profilePic : '/assets/person/noAvatar.jpeg'}
+            alt="profile"
+            className="searchImg"
+          />
+
+  <span>
+    {user?.username}
+  </span>   
+               </div>
+
+            ))
+         }
+
+      </div>
+
+   )
+}
 
         </div>
 
