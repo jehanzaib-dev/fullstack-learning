@@ -6,7 +6,7 @@ import { CreatePostCall, uploadImageCall } from "../../apiCalls/apiCalls.js";
 
 export default function CreatePost({postCreated}) {
 
-    const PF='http://localhost:3000/images/';
+    const PF="http://localhost:5000/images/";
   // Current logged-in user
   const { user } = useContext(AuthContext);
 
@@ -128,7 +128,7 @@ export default function CreatePost({postCreated}) {
 
         <div className="optionsCntnr">
 
-          <input type="file" onChange={(e) =>setFile(e.target.files[0])} className="postOption chooseFile"/>
+          <input type="file" onChange={(e) =>setFile(e.target.files[0])} className='postOption chooseFile'/>
           <span className="postOption">Tag</span>
           <span className="postOption">Location</span>
           <span className="postOption">Feeling</span>
@@ -144,6 +144,7 @@ export default function CreatePost({postCreated}) {
           >
             {isSubmitting ? "Sharing..." : "Share"}
           </button>
+
         </div>
 
       </div>

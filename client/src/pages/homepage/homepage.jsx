@@ -15,9 +15,10 @@ export const HomePage = () => {
 
   return (
     <div className="homePage">
-      <Topbar />
+      <Topbar/>
+
       <div className="homeContainer">
-        <SideBar />
+        <SideBar/>
 
         <div className="homeFeed">
           <CreatePost postCreated={handlePostCreated} />

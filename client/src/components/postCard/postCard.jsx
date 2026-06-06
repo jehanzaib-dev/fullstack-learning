@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function PostCard({post, setPosts}) {
 
-  const PF='http://localhost:3000/images/';
+  const PF="http://localhost:5000/images/";
   const {user}=useContext(AuthContext);
   const [postCreator, setPostCreator]=useState(null);
   const [showMenu, setShowMenu]=useState(false);
@@ -48,6 +48,7 @@ const [isUpdating, setIsUpdating] = useState(false);
 const handleDelete = async () => {
 
   try {
+
     await DeletePostCall(post._id, user._id);
 
     setPosts((prevPosts) =>

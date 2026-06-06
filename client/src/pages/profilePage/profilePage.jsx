@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/authContext";
 import {getOneUserCall, uploadImageCall, updateUserCall} from '../../apiCalls/apiCalls.js';
 
 export default function Profile() {
-  const PF='http://localhost:3000/images/';
+  const PF="http://localhost:5000/images/";
   const { user:currentUser, dispatch } = useContext(AuthContext);
 const [profileUser, setProfileUser] = useState(null);
   const { username } = useParams();
@@ -19,7 +19,9 @@ const isOwnProfile=currentUser._id === profileUser?._id;
  const handleImageUpload = async (file, type) => {
 
   if (!file) return;
+
   try {
+
     const data = new FormData();
 
     data.append("file", file);
@@ -105,7 +107,7 @@ useEffect(() => {
 
   }}
 />
-       <img className="profileCoverImg"src={profileUser?.coverPic ? PF+profileUser.coverPic : '/assets/post/1.jpeg'}alt=""/>
+       <img className="profileCoverImg"src={profileUser?.coverPic ? PF+profileUser.coverPic : '/assets/person/noCover.jpeg'}alt=""/>
        {isOwnProfile && (
         <label htmlFor="coverInput" className="editCoverBtn">
         Change Cover

@@ -1,22 +1,25 @@
 
 import "./topbar.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../context/authContext.js";
+import {SidebarContext} from '../../context/sidebarContext.js';
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../../context/authActions";
 import {Link} from 'react-router-dom';
 import {getAllUsersCall} from '../../apiCalls/apiCalls.js';
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ChatIcon from "@mui/icons-material/Chat";
+import MenuIcon from "@mui/icons-material/Menu";
 
 export default function Topbar() {
 
-  const PF='http://localhost:3000/images/';
+  const PF="http://localhost:5000/images/";
   const [searchTerm, setSearchTerm] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const { user, dispatch } = useContext(AuthContext);
+  const {toggleSidebar}=useContext(SidebarContext);
   const navigate=useNavigate();
-
-  console.log(user);
 
   const handleSearch = (e) => {
    const value = e.target.value;
@@ -29,13 +32,13 @@ export default function Topbar() {
    setFilteredUsers(matches);
 };
 
+
   const handleLogout = () => {
     dispatch(Logout());
     navigate('/login');
   };
 
-
-  useEffect(() => {
+useEffect(() => {
   const fetchUsers = async () => {
     try {
       const data =await getAllUsersCall(); 
@@ -47,18 +50,20 @@ export default function Topbar() {
   fetchUsers();
 }, []);
 
-
-  return (
+return (
 
     <div className="topbarContainer">
 
       {/* Left Section */}
       <div className="topbarLeft">
-
-        <span className="logo">
-          SocialSphere
-        </span>
-
+        <div className="mobileMenu">
+            <MenuIcon className="menuIcon" onClick={toggleSidebar}/>
+        </div>
+          <Link to="/home" className="logoLink">
+            <span className="logo">
+              SocialSphere
+            </span>
+          </Link>
       </div>
 
       {/* Center Section */}
@@ -130,25 +135,25 @@ export default function Topbar() {
         <div className="topbarIcons">
 
           <div className="topbarIconItem">
-            <span>🔔</span>
+            <NotificationsIcon className='topbarMuiIcon'/>
             <span className="topbarIconBadge">2</span>
           </div>
 
           <div className="topbarIconItem">
-            <span>💬</span>
+            <ChatIcon className='topbarMuiIcon'/>
             <span className="topbarIconBadge">5</span>
           </div>
 
         </div>
 
         <div className="topbarProfile">
-        <Link to={`/profile/${user?.username}`}>
-          <img
+          <Link to={`/profile/${user?.username}`}>
+            <img
             src={user?.profilePic ? PF + user.profilePic : '/assets/person/noAvatar.jpeg'}
             alt="profile"
             className="topbarImg"
-          />
-        </Link>
+            />
+          </Link>
           <button
             className="logoutBtn"
             onClick={handleLogout}
@@ -157,7 +162,9 @@ export default function Topbar() {
           </button>
 
         </div>
+
       </div>
+
     </div>
   );
 }

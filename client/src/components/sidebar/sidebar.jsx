@@ -16,11 +16,14 @@ import {useState, useEffect} from 'react';
 import {getAllUsersCall} from '../../apiCalls/apiCalls.js';
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext.js";
+import {SidebarContext} from '../../context/sidebarContext.js';
+
 
 export default function SideBar() {
 
-  const PF='http://localhost:3000/images/';
+  const PF="http://localhost:5000/images/";
   const {user}=useContext(AuthContext);
+  const {isSidebarOpen, setIsSidebarOpen}=useContext(SidebarContext);
   const [users, setUsers]=useState([]);
   const location = useLocation();
   const displayUsers = users.map((u) => {
@@ -32,6 +35,7 @@ export default function SideBar() {
   }
 
   return u;
+
 });
 
   const sidebarItems = [
@@ -96,10 +100,15 @@ useEffect(() => {
 }, []);
 
   return (
-    <div className="sidebar">
+      <div
+      className={
+        isSidebarOpen
+          ? "sidebar mobileOpen"
+          : "sidebar"
+      }
+    >    
 
       <div className="sidebarWrapper">
-
         <ul className="sidebarList">
 
           {sidebarItems.map((item) => (
@@ -107,7 +116,7 @@ useEffect(() => {
             <Link
               to={item.path}
               className="sidebarLink"
-              key={item.text}
+              key={item.text} onClick={()=>setIsSidebarOpen(false)}
             >
 
               <li
@@ -141,7 +150,7 @@ useEffect(() => {
         <ul className="sidebarFriendList">
         {
         displayUsers.map((u) => (
-    <Link to={`/profile/${u.username}`} key={u._id} className="sidebarUserLink"
+    <Link to={`/profile/${u.username}`} key={u._id} className="sidebarUserLink" onClick={()=>setIsSidebarOpen(false)}
     >
     <li key={u._id} className="sidebarFriendItem">
 
