@@ -1,0 +1,37 @@
+---
+description: Use thick, readable lines in Mermaid diagrams
+alwaysApply: true
+---
+
+# Mermaid Diagram Readability
+
+When generating Mermaid diagrams, always use thick, high-contrast lines so they remain readable in Cursor chat.
+
+## Required styling
+
+1. Start every diagram with a `%%{init: ...}%%` block that sets `stroke-width: 3px` via `themeCSS`.
+2. Use dark stroke colors (`#1a1a1a`) for contrast.
+3. Prefer `==>` over `-->` for flowchart arrows.
+4. Add `linkStyle default stroke-width:3px,stroke:#1a1a1a` on flowcharts.
+
+## Flowchart init block
+
+```text
+%%{init: {'theme':'base', 'themeVariables': {'lineColor':'#1a1a1a'}, 'themeCSS': '.flowchart-link, .edgePath .path, path.flowchart-link { stroke-width: 3px !important; stroke: #1a1a1a !important; } .arrowheadPath { fill: #1a1a1a !important; stroke: #1a1a1a !important; }'}}%%
+```
+
+## Sequence diagram init block
+
+```text
+%%{init: {'theme':'base', 'themeVariables': {'signalColor':'#1a1a1a'}, 'themeCSS': '.messageLine0, .messageLine1, .loopLine { stroke-width: 3px !important; stroke: #1a1a1a !important; } .arrowheadPath { fill: #1a1a1a !important; }'}}%%
+```
+
+## Example
+
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'lineColor':'#1a1a1a'}, 'themeCSS': '.flowchart-link, .edgePath .path { stroke-width: 3px !important; stroke: #1a1a1a !important; } .arrowheadPath { fill: #1a1a1a !important; }'}}%%
+flowchart LR
+    A ==> B
+    B ==> C
+    linkStyle default stroke-width:3px,stroke:#1a1a1a
+```

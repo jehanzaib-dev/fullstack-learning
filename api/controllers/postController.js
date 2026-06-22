@@ -16,26 +16,6 @@ res.status(200).json(enrichedPost);
 	}
 }
 
-export const getAllPosts = async (req, res) => {
-
-  try {
-    const posts = await postModel.find().sort({ createdAt: -1 });
-
-const enrichedPosts = await Promise.all(
-  posts.map((post) => enrichPost(post))
-);
-
-res.json(enrichedPosts);
-
-  } catch (err) {
-
-    console.log(err);
-
-    res.status(500).json({
-      message: "Unable to connect to database, please check your internet connection"
-    });
-  }
-};
 
 export const getUserPosts = async (req, res) => {
 

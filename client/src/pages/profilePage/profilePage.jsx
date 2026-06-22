@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import {getOneUserCall, uploadImageCall, updateUserCall} from '../../apiCalls/apiCalls.js';
-
+import { UpdateUser } from "../../context/authActions.js";
 export default function Profile() {
   const PF="http://localhost:5000/images/";
   const { user:currentUser, dispatch } = useContext(AuthContext);
@@ -37,10 +37,7 @@ const isOwnProfile=currentUser._id === profileUser?._id;
         }
       );
 
-    dispatch({
-      type: "UPDATE_USER",
-      payload: updatedUser,
-    });
+    dispatch(UpdateUser(updatedUser));
 
     setProfileUser(updatedUser);
 
@@ -82,9 +79,6 @@ useEffect(() => {
   id="profileInput"
   hidden
   onChange={(e) => {
-
-    console.log("PROFILE INPUT WORKING");
-
     handleImageUpload(
       e.target.files[0],
       "profilePic"

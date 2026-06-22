@@ -54,8 +54,6 @@ export default function CreatePost({postCreated}) {
       imageName =
         uploadRes.filename;
     }
-
-    // CREATE POST OBJECT
     const newPost = {
 
       userId: user._id,
@@ -65,21 +63,10 @@ export default function CreatePost({postCreated}) {
       img: imageName,
 
     };
-
-    // CREATE POST
     await CreatePostCall(newPost);
-
-    // RESET STATES
     setDesc("");
-
     setFile(null);
-
-    // OPTIONAL REFRESH
     postCreated();
-
-    console.log(
-      "Post created successfully"
-    );
 
   } catch (err) {
 

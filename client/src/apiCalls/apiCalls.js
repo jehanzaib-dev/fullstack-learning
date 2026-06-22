@@ -55,11 +55,6 @@ export const CreatePostCall=async(postData)=>{
   return response.data;
 }
 
-export const getAllPostsCall=async()=>{
-  const response=await axios.get('/api/v1/posts');
-  return response.data;
-}
-
 export const getUserPostsCall=async(username)=>{
   const response=await axios.get(`/api/v1/posts/profile/${username}`);
   return response.data;
