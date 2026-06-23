@@ -1,4 +1,5 @@
 import "./createPost.css";
+import AIGenerator from "../aiGenerator/aiGenerator.jsx";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext.js";
 import { CreatePostCall, uploadImageCall } from "../../apiCalls/apiCalls.js";
@@ -92,6 +93,7 @@ export default function CreatePost({postCreated}) {
       className="createPostForm"
       onSubmit={handleShare}
     >
+      <AIGenerator setDesc={setDesc} />
       <div className="topSection">
 
         <img
