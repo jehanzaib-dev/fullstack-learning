@@ -40,7 +40,7 @@ Rules:
     
     // List of models ordered by priority and free tier quota allowances
     // 2.5-flash-lite gives you 30 RPM & 1,000 Daily Requests vs 2.5-flash's tight 10 RPM / 250 Daily limits.
-    const modelsToTry = ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-1.5-flash"];
+    const modelsToTry = ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-2.0-flash-exp"];
     
     // Loop through fallback models if rate-limited or busy
     for (let i = 0; i < modelsToTry.length; i++) {
@@ -92,7 +92,7 @@ Rules:
 
     return res.status(500).json({
       success: false,
-      message: "AI generation failed",
+      message: "AI generation failed, Please try again in a few moments.",
       error: error.message,
     });
   }
